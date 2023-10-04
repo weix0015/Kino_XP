@@ -61,7 +61,7 @@ public class UserController
             }
         } catch (IndexOutOfBoundsException e) {
             // Catch the exception when the user is not found in the database
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + userLoginDTO.email());
         } catch (Exception e) {
             // Handle other unexpected exceptions here
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
