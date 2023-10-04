@@ -8,6 +8,7 @@ import com.example.kino_xp.repository.UserRepository;
 import com.example.kino_xp.service.SessionService;
 import com.example.kino_xp.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,18 @@ public class UserController
     public ResponseEntity<List<UserDTO>> getUsers(){
         List<UserDTO> userDTOList = userService.getAllUsers();
         return new ResponseEntity<>(userDTOList, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable("id") int id){
+        UserDTO user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{email}")
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable("email") String email){
+        UserDTO user = userService.getUsersByEmail(email);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 

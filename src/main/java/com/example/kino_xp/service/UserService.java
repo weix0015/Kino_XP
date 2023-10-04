@@ -4,7 +4,7 @@ import com.example.kino_xp.entity.User;
 import com.example.kino_xp.dto.UserDTO;
 import com.example.kino_xp.exception.UserNotFoundException;
 import com.example.kino_xp.repository.UserRepository;
-import com.example.kino_xp.dto.UserConverter;
+import com.example.kino_xp.converter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,15 +44,14 @@ public class UserService
         }
     }
 
-    public List<UserDTO> getUsersByEmail(String email){
+    public UserDTO getUsersByEmail(String email){
         List<User> userList = userRepository.findAllByEmail(email);
+        User foundUser = userList.get(0);
 
-        if (userList.isEmpty()){
+        if (foundUser == null){
             throw new UserNotFoundException("User with email: " + email + " could not be found");
         } else {
-            return userList.stream()
-                    .map(userConverter::toDTO)
-                    .collect(Collectors.toList());
+            return userConverter.toDTO(foundUser);
         }
     }
 
