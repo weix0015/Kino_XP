@@ -20,6 +20,7 @@ public class Movie {
 
 private int id;
 private String title;
+private Genre genre;
 private LocalTime showLength;
 private int age;
 
