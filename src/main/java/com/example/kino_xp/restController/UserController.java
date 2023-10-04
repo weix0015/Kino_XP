@@ -5,7 +5,9 @@ import com.example.kino_xp.dto.UserLoginDTO;
 import com.example.kino_xp.entity.Ticket;
 import com.example.kino_xp.entity.User;
 import com.example.kino_xp.repository.UserRepository;
+import com.example.kino_xp.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -23,9 +25,13 @@ public class UserController
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/users")
-    public List<User> getUsers(){
-        return userRepository.findAll();
+    public ResponseEntity<List<UserDTO>> getUsers(){
+        List<UserDTO> userDTOList = userService.getAllUsers();
+        return new ResponseEntity<>(userDTOList, HttpStatus.OK);
     }
 
 
@@ -55,7 +61,20 @@ public class UserController
         return ResponseEntity.status(HttpStatus.OK).body(userLoginDTO);
     }
 
-    @PostMapping("/createUser")
+    @PostMapping("/user")
+    public ResponseEntity<String> createUser(@RequestBody UserDTO userDTO){
+        UserDTO user = userService.createUser(userDTO);
+        if (user != null){
+            return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User creation failed");
+        }
+    }
+
+
+
+    /*
+    @PostMapping("/user")
     public ResponseEntity<String> createUser(Model model, HttpSession session,
                                              @RequestBody UserDTO userDTO) {
         try {
@@ -83,5 +102,17 @@ public class UserController
             // Handle other exceptions
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }
+    }
+         */
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<UserDTO> putUser(@PathVariable("id") int id, @RequestBody UserDTO userDTO) {
+        return new ResponseEntity<>(userService.updateUser(id, userDTO), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/student/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
+        userService.deleteUserById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

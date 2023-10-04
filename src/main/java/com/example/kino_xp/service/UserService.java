@@ -11,12 +11,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Service
 public class UserService
 {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+
+
 
     @Autowired
     public UserService(UserRepository userRepository, UserConverter userConverter){
@@ -41,7 +44,7 @@ public class UserService
         }
     }
 
-    public List<UserDTO> getUsersByName(String email){
+    public List<UserDTO> getUsersByEmail(String email){
         List<User> userList = userRepository.findAllByEmail(email);
 
         if (userList.isEmpty()){
@@ -50,6 +53,38 @@ public class UserService
             return userList.stream()
                     .map(userConverter::toDTO)
                     .collect(Collectors.toList());
+        }
+    }
+
+    public UserDTO createUser(UserDTO userDTO){
+        User userToSave = userConverter.toEntity(userDTO);
+        userToSave.setId(0);
+
+        String hashedPassword = BCrypt.hashpw(userDTO.password(), BCrypt.gensalt());
+
+        userToSave.setPassword(hashedPassword);
+        User savedUser = userRepository.save(userToSave);
+        return userConverter.toDTO(savedUser);
+    }
+
+    public UserDTO updateUser(int id, UserDTO userDTO){
+        Optional<User> existingUser = userRepository.findById(id);
+        if (existingUser.isEmpty()){
+            throw new UserNotFoundException("User with id: " + id + " not found");
+        } else {
+            User userToUpdate = userConverter.toEntity(userDTO);
+            userToUpdate.setId(id);
+            User savedUser = userRepository.save(userToUpdate);
+            return userConverter.toDTO(savedUser);
+        }
+    }
+
+    public void deleteUserById(int id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()){
+            throw new UserNotFoundException("User with id: " + id + " not found");
+        } else {
+            userRepository.deleteById(id);
         }
     }
 }
