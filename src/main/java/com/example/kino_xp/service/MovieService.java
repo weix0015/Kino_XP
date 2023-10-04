@@ -21,6 +21,7 @@ public class MovieService {
   @Autowired
   MovieConverter movieConverter;
 
+  // get all movies
   public List<MovieDTO> getAllTheMovie() {
     List<Movie> movies = movieRepository.findAll();
     return movies.stream()
@@ -29,6 +30,7 @@ public class MovieService {
 
   }
 
+  // find movie by id
   public MovieDTO getMovieById(int id) {
     Optional<Movie> optionalMovie = movieRepository.findById(id);
     if (optionalMovie.isPresent()) {
@@ -38,6 +40,7 @@ public class MovieService {
     }
   }
 
+  // create the movie
   public MovieDTO createMovie(MovieDTO movieDTO) {
     Movie movieToSave = movieConverter.movieToEntity(movieDTO);
     movieToSave.setId(0);
