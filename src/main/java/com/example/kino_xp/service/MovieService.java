@@ -44,4 +44,29 @@ public class MovieService {
     Movie movie = movieRepository.save(movieToSave);
     return movieConverter.movieToDTO(movie);
   }
+
+  // update the movie.
+
+  public MovieDTO updateMovie(int id, MovieDTO movieDTO) {
+    Optional<Movie> existingMovie = movieRepository.findById(id);
+    if (existingMovie.isPresent()) {
+    Movie movieToUpdate=movieConverter.movieToEntity(movieDTO);
+    movieToUpdate.setId(id);
+    Movie savedMovie=movieRepository.save(movieToUpdate);
+    return movieConverter.movieToDTO(savedMovie);
+    }else{
+     throw new MovieNotFoundException("Movie is not found with id: "+id);
+    }
+  }
+  // The delete method.
+
+  public void deleteMovie(int id) {
+    Optional<Movie> movie=movieRepository.findById(id);
+    if (movie.isPresent()) {
+     movieRepository.delete(movie.get());
+    }else{
+      throw new MovieNotFoundException("The movie is not found with id: "+id);
+    }
+  }
+
 }
