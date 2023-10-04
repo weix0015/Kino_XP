@@ -1,4 +1,4 @@
-package com.example.kino_xp.Model;
+package com.example.kino_xp.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
