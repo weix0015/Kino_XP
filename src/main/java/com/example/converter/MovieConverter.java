@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MovieConverter {
-  public Movie toEntity(MovieDTO movieDTO) {
+  public Movie movieToEntity(MovieDTO movieDTO) {
    return new Movie(
            movieDTO.id(),
            movieDTO.title(),
@@ -15,7 +15,7 @@ public class MovieConverter {
            movieDTO.age()
    );
   }
-  public MovieDTO toDTO(Movie movie) {
+  public MovieDTO movieToDTO(Movie movie) {
     return new MovieDTO(
         movie.getId(),
         movie.getTitle(),
