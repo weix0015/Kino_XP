@@ -67,6 +67,11 @@ public class UserController
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
         }
     }
+    @PostMapping("/logout")
+    public ResponseEntity<String> doLogout(HttpSession session) {
+        session.invalidate();
+        return ResponseEntity.status(HttpStatus.OK).body("Logout successful");
+    }
 
 
     @PostMapping("/user")
