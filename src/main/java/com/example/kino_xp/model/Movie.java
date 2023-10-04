@@ -24,5 +24,4 @@ private Genre genre;
 private LocalTime showLength;
 private int age;
 
-
 }
