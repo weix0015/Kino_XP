@@ -1,14 +1,15 @@
 package com.example.kino_xp.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +23,10 @@ public class Ticket {
     private int id;
 
 
+    @ManyToOne
+    @JoinColumn(name = "ticket", referencedColumnName = "id")
+    @JsonBackReference
+    private User user;
 
     private String whatever;
 }
