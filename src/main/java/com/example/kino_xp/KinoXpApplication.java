@@ -8,6 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "com.example.converter")
 public class KinoXpApplication {
 
+
+
+
+
   public static void main(String[] args) {
     SpringApplication.run(KinoXpApplication.class, args);
   }
