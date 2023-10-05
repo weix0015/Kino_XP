@@ -19,4 +19,6 @@ public class Seat {
     @JoinColumn(name = "seatRowNumber1")
     private SeatRow row;
     //private Ticket ticket;
+
+    private boolean reserved;
 }
