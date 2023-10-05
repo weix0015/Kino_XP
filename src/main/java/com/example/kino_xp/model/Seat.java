@@ -1,5 +1,6 @@
 package com.example.kino_xp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "seatRowNumber1")
+    @JsonBackReference
     private SeatRow row;
     //private Ticket ticket;
 
