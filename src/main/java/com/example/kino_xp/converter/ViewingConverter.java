@@ -11,7 +11,8 @@ public class ViewingConverter {
                 viewing.getId(),
                 viewing.getShowTime(),
                 viewing.getHall(),
-                viewing.getShowEndTime()
+                viewing.getShowEndTime(),
+                viewing.getTicket()
         );
     }
 
@@ -20,7 +21,8 @@ public class ViewingConverter {
                 viewingDTO.id(),
                 viewingDTO.showTime(),
                 viewingDTO.hall(),
-                viewingDTO.showEndTime()
+                viewingDTO.showEndTime(),
+                viewingDTO.ticket()
         );
     }
 

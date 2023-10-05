@@ -22,7 +22,7 @@ public class ViewingRestController {
     }
 
     @PostMapping
-    public ResponseEntity<ViewingDTO> createTicket(@RequestBody ViewingDTO viewingDTO) {
+    public ResponseEntity<ViewingDTO> createViewing(@RequestBody ViewingDTO viewingDTO) {
         ViewingDTO createdViewing = viewingService.createViewing(viewingDTO);
         return new ResponseEntity<>(createdViewing, HttpStatus.CREATED);
     }

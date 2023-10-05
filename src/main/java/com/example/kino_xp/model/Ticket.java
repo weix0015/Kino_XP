@@ -1,9 +1,6 @@
 package com.example.kino_xp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,9 +15,9 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDateTime dateOfPurchase;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Viewing viewing;
     private int hall;
-    //private List<Seat> seat;
     private double price;
 
 
