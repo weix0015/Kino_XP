@@ -1,10 +1,7 @@
 package com.example.kino_xp.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 
 @Entity
@@ -16,10 +13,10 @@ import java.util.List;
 public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rowNumber;
+    private int seatNumber;
 
     @ManyToOne
-    @JoinColumn(name = "id")
-    private Row row;
+    @JoinColumn(name = "seatRowNumber1")
+    private SeatRow row;
     //private Ticket ticket;
 }

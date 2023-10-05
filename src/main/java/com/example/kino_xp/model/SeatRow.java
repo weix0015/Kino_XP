@@ -16,11 +16,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Row {
+@Table(name = "row")
+public class SeatRow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rowNumber;
-    @OneToMany(mappedBy = "row")
+    private int seatRowNumber;
+    @OneToMany(mappedBy = "row", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Seat> seatList = new ArrayList<>();
 }

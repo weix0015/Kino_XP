@@ -1,10 +1,9 @@
 package com.example.kino_xp.repository;
 
-import com.example.kino_xp.model.Seat;
+import com.example.kino_xp.model.SeatRow;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SeatRepository extends JpaRepository<Seat, Integer> {
-
+public interface SeatRowRepository extends JpaRepository<SeatRow, Integer> {
 }

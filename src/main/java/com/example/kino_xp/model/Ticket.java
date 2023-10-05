@@ -23,7 +23,7 @@ public class Ticket {
 
 
     @ManyToOne
-    @JoinColumn(name = "user", referencedColumnName = "rowNumber")
+    @JoinColumn(name = "user", referencedColumnName = "id")
     @JsonBackReference
     private User user;
 
