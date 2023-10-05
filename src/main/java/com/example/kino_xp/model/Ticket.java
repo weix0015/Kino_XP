@@ -1,4 +1,4 @@
-package com.example.kino_xp.entity;
+package com.example.kino_xp.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -7,9 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +21,7 @@ public class Ticket {
 
 
     @ManyToOne
-    @JoinColumn(name = "ticket", referencedColumnName = "id")
+    @JoinColumn(name = "user", referencedColumnName = "rowNumber")
     @JsonBackReference
     private User user;
 

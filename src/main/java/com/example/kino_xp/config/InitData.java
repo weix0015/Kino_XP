@@ -1,6 +1,6 @@
 package com.example.kino_xp.config;
 
-import com.example.kino_xp.entity.User;
+import com.example.kino_xp.model.User;
 import com.example.kino_xp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
