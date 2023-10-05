@@ -1,8 +1,8 @@
 package com.example.kino_xp.service;
 
-import com.example.converter.MovieConverter;
-import com.example.dto.MovieDTO;
-import com.example.exception.MovieNotFoundException;
+import com.example.kino_xp.converter.MovieConverter;
+import com.example.kino_xp.dto.MovieDTO;
+import com.example.kino_xp.exception.MovieNotFoundException;
 import com.example.kino_xp.model.Movie;
 import com.example.kino_xp.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;

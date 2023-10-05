@@ -1,4 +1,4 @@
-package com.example.dto;
+package com.example.kino_xp.dto;
 
 import com.example.kino_xp.model.Genre;
 
