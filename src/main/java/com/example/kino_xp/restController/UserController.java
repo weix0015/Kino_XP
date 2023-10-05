@@ -36,13 +36,13 @@ public class UserController
         return new ResponseEntity<>(userDTOList, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/id/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable("id") int id){
         UserDTO user = userService.getUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{email}")
+    @GetMapping("/user/email/{email}")
     public ResponseEntity<UserDTO> getUserByEmail(@PathVariable("email") String email){
         UserDTO user = userService.getUserByEmail(email);
         return new ResponseEntity<>(user, HttpStatus.OK);
