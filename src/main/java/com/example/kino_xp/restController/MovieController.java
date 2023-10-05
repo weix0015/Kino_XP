@@ -37,14 +37,15 @@ public class MovieController {
     return ResponseEntity.ok(movieDTO);
   }
 
+  // test fail
   // update movies
   @PutMapping("/movies/{id}")
   public ResponseEntity<MovieDTO> updateMovie(@PathVariable("id") int id, MovieDTO movieDTO) {
     MovieDTO updateMovie = movieService.updateMovie(id, movieDTO);
     return ResponseEntity.ok(updateMovie);
   }
-  // Delete movies
 
+  // delete movies
   @DeleteMapping("/movies/{id}")
   public ResponseEntity<Void> deleteMovie(@PathVariable("id") int id) {
     movieService.deleteMovie(id);
