@@ -1,14 +1,17 @@
 package com.example.kino_xp.config;
 
-import com.example.kino_xp.entity.User;
 import com.example.kino_xp.model.Genre;
 import com.example.kino_xp.model.Movie;
+import com.example.kino_xp.model.User;
+import com.example.kino_xp.model.Viewing;
 import com.example.kino_xp.repository.MovieRepository;
 import com.example.kino_xp.repository.UserRepository;
+import com.example.kino_xp.repository.ViewingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Component
@@ -18,6 +21,9 @@ public class InitData implements CommandLineRunner {
 
   @Autowired
   MovieRepository movieRepository;
+
+  @Autowired
+  ViewingRepository viewingRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -36,5 +42,13 @@ public class InitData implements CommandLineRunner {
     m1.setShowLength(LocalTime.of(2, 30, 30));
 
     movieRepository.save(m1);
+
+    Viewing v1 = new Viewing();
+    v1.setHall(1);
+    v1.setId(1);
+    v1.setTicket(null);
+    v1.setShowTime(LocalDateTime.of(2021, 5, 5, 12, 30, 30));
+    v1.setShowEndTime(LocalDateTime.of(2021, 5, 5, 14, 30, 30));
+    viewingRepository.save(v1);
   }
 }

@@ -1,6 +1,6 @@
 package com.example.kino_xp.dto;
 
-import com.example.kino_xp.entity.Ticket;
+import com.example.kino_xp.model.Ticket;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;

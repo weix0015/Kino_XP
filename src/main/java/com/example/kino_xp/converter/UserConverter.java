@@ -2,7 +2,7 @@ package com.example.kino_xp.converter;
 
 import com.example.kino_xp.dto.UserDTO;
 import com.example.kino_xp.dto.UserLoginDTO;
-import com.example.kino_xp.entity.User;
+import com.example.kino_xp.model.User;
 import org.springframework.stereotype.Component;
 
 @Component

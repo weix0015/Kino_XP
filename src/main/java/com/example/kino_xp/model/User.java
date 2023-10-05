@@ -1,4 +1,4 @@
-package com.example.kino_xp.entity;
+package com.example.kino_xp.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
