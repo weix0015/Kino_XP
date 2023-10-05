@@ -13,17 +13,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class User
-{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private String email;
-    private String password;
-    @OneToMany(mappedBy = "user")
-    @JsonManagedReference
-    private List<Ticket> tickets = new ArrayList<>();
-    private boolean admin;
+public class User {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+  private String name;
+  private String email;
+  private String password;
+  @OneToMany(mappedBy = "user")
+  @JsonManagedReference
+  private List<Ticket> tickets = new ArrayList<>();
+  private boolean admin;
 
 }

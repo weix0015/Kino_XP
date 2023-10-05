@@ -15,18 +15,18 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 public class Ticket {
-    @Getter
-    @Setter
+  @Getter
+  @Setter
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
 
-    @ManyToOne
-    @JoinColumn(name = "ticket", referencedColumnName = "id")
-    @JsonBackReference
-    private User user;
+  @ManyToOne
+  @JoinColumn(name = "ticket", referencedColumnName = "id")
+  @JsonBackReference
+  private User user;
 
-    private String whatever;
+  private String whatever;
 }

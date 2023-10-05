@@ -15,13 +15,13 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @ToString
 public class Movie {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-private int id;
-private String title;
-private Genre genre;
-private LocalTime showLength;
-private int age;
+  private int id;
+  private String title;
+  private Genre genre;
+  private LocalTime showLength;
+  private int age;
 
 }
