@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ViewingRepository extends JpaRepository<Viewing, Integer> {
-    Viewing findById(int id);
     List<Viewing> findAll();
 }
