@@ -1,10 +1,21 @@
 package com.example.kino_xp.config;
 
+import com.example.kino_xp.model.Seat;
+import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.model.User;
+import com.example.kino_xp.repository.SeatRepository;
+import com.example.kino_xp.repository.SeatRowRepository;
 import com.example.kino_xp.repository.UserRepository;
+import com.example.kino_xp.service.SeatRowService;
+import com.example.kino_xp.service.SeatService;
+import com.example.kino_xp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class InitData implements CommandLineRunner
@@ -12,8 +23,23 @@ public class InitData implements CommandLineRunner
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    SeatService seatRowService;
+
+    @Autowired
+    SeatRepository seatRepository;
+
+    @Autowired
+    SeatRowRepository seatRowRepository;
+
+
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) throws Exception
+    {
+        // create 1 user
         User u1 = new User();
         u1.setName("Mikkel");
         u1.setEmail("MikkelsEmail@Email.com");
@@ -22,6 +48,18 @@ public class InitData implements CommandLineRunner
 
         userRepository.save(u1);
 
+        //SETUP TEST SEAT
+        Seat testSeat = new Seat();
+        testSeat.setReserved(true);
+        testSeat.setSeatNumber(1);
+        seatRepository.save(testSeat);
+
+        //SETUP TEST SEAT_ROW
+        SeatRow seatRow1 = new SeatRow();
+        seatRow1.setSeatList(new ArrayList<Seat>(Arrays.asList(testSeat)));
+        seatRow1.setSeatRowNumber(1);
+
+        seatRowRepository.save(seatRow1);
 
     }
 }
