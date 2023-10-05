@@ -1,6 +1,6 @@
 package com.example.kino_xp.config;
 
-import com.example.kino_xp.entity.User;
+import com.example.kino_xp.model.User;
 import com.example.kino_xp.model.Genre;
 import com.example.kino_xp.model.Movie;
 import com.example.kino_xp.repository.MovieRepository;

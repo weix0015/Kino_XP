@@ -9,6 +9,7 @@ public class TicketConverter {
     public TicketDTO ticketToDTO(Ticket ticket) {
         return new TicketDTO(
                 ticket.getId(),
+                ticket.getUser(),
                 ticket.getDateOfPurchase(),
                 ticket.getPrice(),
                 ticket.getViewing(),
@@ -20,6 +21,7 @@ public class TicketConverter {
     public Ticket toEntity(TicketDTO ticketDTO) {
         return new Ticket(
                 ticketDTO.id(),
+                ticketDTO.user(),
                 ticketDTO.dateOfPurchase(),
                 ticketDTO.viewing(),
                 ticketDTO.hall(),

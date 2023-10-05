@@ -2,7 +2,7 @@ package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.UserConverter;
 import com.example.kino_xp.dto.UserDTO;
-import com.example.kino_xp.entity.User;
+import com.example.kino_xp.model.User;
 import com.example.kino_xp.exception.UserNotFoundException;
 import com.example.kino_xp.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
