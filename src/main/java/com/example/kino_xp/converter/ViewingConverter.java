@@ -2,7 +2,9 @@ package com.example.kino_xp.converter;
 
 import com.example.kino_xp.dto.ViewingDTO;
 import com.example.kino_xp.model.Viewing;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ViewingConverter {
     public ViewingDTO viewingToDTO(Viewing viewing) {
         return new ViewingDTO(
