@@ -13,18 +13,34 @@ import java.util.List;
 @RestController
 public class MovieController {
 
-    @Autowired
-    MovieService movieService;
+  @Autowired
+  MovieService movieService;
 
-    @GetMapping("/movies")
-    public ResponseEntity<List<MovieDTO>> getAllMovie() {
-        List<MovieDTO> movies = movieService.getAllTheMovie();
-        return new ResponseEntity<>(movies, HttpStatus.OK);
-    }
-  // creat a movie
-    @PostMapping("/movies")
-    public ResponseEntity<MovieDTO>postMovie(@RequestBody MovieDTO movieDTO) {
-        MovieDTO creatMovie = movieService.createMovie(movieDTO);
-        return new ResponseEntity<>(creatMovie,HttpStatus.CREATED);
-    }
+  // list of all movies
+  @GetMapping("/movies")
+  public ResponseEntity<List<MovieDTO>> getAllMovie() {
+    List<MovieDTO> movies = movieService.getAllTheMovie();
+    return new ResponseEntity<>(movies, HttpStatus.OK);
+  }
+
+  // create a movie
+  @PostMapping("/movies")
+  public ResponseEntity<MovieDTO> postMovie(@RequestBody MovieDTO movieDTO) {
+    MovieDTO creatMovie = movieService.createMovie(movieDTO);
+    return new ResponseEntity<>(creatMovie, HttpStatus.CREATED);
+  }
+
+  // get movie by id
+  @GetMapping("/movie/{id}")
+  public ResponseEntity<MovieDTO> getMovieById(@PathVariable("id") int id) {
+    MovieDTO movieDTO = movieService.getMovieById(id);
+    return ResponseEntity.ok(movieDTO);
+  }
+
+  // update movies
+  @PutMapping("/movies/{id}")
+  public ResponseEntity<MovieDTO> updateMovie(@PathVariable("id") int id, MovieDTO movieDTO) {
+    MovieDTO updateMovie = movieService.updateMovie(id, movieDTO);
+    return ResponseEntity.ok(updateMovie);
+  }
 }
