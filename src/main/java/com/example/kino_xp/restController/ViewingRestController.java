@@ -21,7 +21,7 @@ public class ViewingRestController {
         return new ResponseEntity<>(viewingDTOList, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/viewing")
     public ResponseEntity<ViewingDTO> createViewing(@RequestBody ViewingDTO viewingDTO) {
         ViewingDTO createdViewing = viewingService.createViewing(viewingDTO);
         return new ResponseEntity<>(createdViewing, HttpStatus.CREATED);

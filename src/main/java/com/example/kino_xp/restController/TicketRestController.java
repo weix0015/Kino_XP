@@ -22,7 +22,7 @@ public class TicketRestController {
         return new ResponseEntity<>(ticketDTOList, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/ticket")
     public ResponseEntity<TicketDTO> createTicket(@RequestBody TicketDTO ticketDTO) {
         TicketDTO createdTicket = ticketService.createTicket(ticketDTO);
         return new ResponseEntity<>(createdTicket, HttpStatus.CREATED);
