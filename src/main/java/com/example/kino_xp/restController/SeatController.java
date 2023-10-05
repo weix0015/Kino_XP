@@ -31,6 +31,13 @@ public class SeatController
         return new ResponseEntity<>(seatDTOList, HttpStatus.OK);
     }
 
+    @GetMapping("/seat/{seatNumber}")
+    public ResponseEntity<SeatDTO> getSeat(@PathVariable("seatNumber") int seatNumber)
+    {
+        SeatDTO seatDTO = seatService.getSeatById(seatNumber);
+        return new ResponseEntity<>(seatDTO, HttpStatus.OK);
+    }
+
     @PutMapping("/seat/{seatNumber}")
     public ResponseEntity<SeatDTO> putUser(@PathVariable("seatNumber") int seatNumber, @RequestBody SeatDTO seatDTO) {
         // Check the current reservation status
