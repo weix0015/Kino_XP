@@ -34,6 +34,18 @@ public class UserService
                 .collect(Collectors.toList());
     }
 
+    public List<UserDTO> getUsersByName(String name){
+        List<User> userList = userRepository.findAllByName(name);
+
+        if (userList.isEmpty()) {
+            throw new UserNotFoundException("No user found with name: " + name);
+        } else {
+            return userList.stream()
+                    .map(userConverter::toDTO)
+                    .collect(Collectors.toList());
+        }
+    }
+
     public UserDTO getUserById(int id){
         Optional<User> optionalUser = userRepository.findById(id);
 
@@ -44,14 +56,13 @@ public class UserService
         }
     }
 
-    public UserDTO getUsersByEmail(String email){
+    public UserDTO getUserByEmail(String email){
         List<User> userList = userRepository.findAllByEmail(email);
-        User foundUser = userList.get(0);
-
-        if (foundUser == null){
-            throw new UserNotFoundException("User with email: " + email + " could not be found");
-        } else {
+        if (!userList.isEmpty()){
+            User foundUser = userList.get(0);
             return userConverter.toDTO(foundUser);
+        } else {
+            throw new UserNotFoundException("User with email: " + email + " could not be found");
         }
     }
 

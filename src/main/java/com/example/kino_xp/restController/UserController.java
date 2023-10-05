@@ -8,7 +8,6 @@ import com.example.kino_xp.repository.UserRepository;
 import com.example.kino_xp.service.SessionService;
 import com.example.kino_xp.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +44,14 @@ public class UserController
 
     @GetMapping("/user/{email}")
     public ResponseEntity<UserDTO> getUserByEmail(@PathVariable("email") String email){
-        UserDTO user = userService.getUsersByEmail(email);
+        UserDTO user = userService.getUserByEmail(email);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{name}")
+    public ResponseEntity<List<UserDTO>> getUsersByName(@PathVariable("name") String name){
+        List<UserDTO> userDTOList = userService.getUsersByName(name);
+        return new ResponseEntity<>(userDTOList, HttpStatus.OK);
     }
 
 
