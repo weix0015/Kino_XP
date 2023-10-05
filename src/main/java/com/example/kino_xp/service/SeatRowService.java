@@ -1,7 +1,7 @@
 package com.example.kino_xp.service;
 
+import com.example.kino_xp.converter.SeatConverter;
 import com.example.kino_xp.converter.SeatRowConverter;
-import com.example.kino_xp.dto.SeatDTO;
 import com.example.kino_xp.dto.SeatRowDTO;
 import com.example.kino_xp.exception.SeatRowNotFoundExeption;
 import com.example.kino_xp.model.SeatRow;
@@ -15,11 +15,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class SeatRowService {
-    @Autowired
-    SeatRowRepository seatRowRepository;
+
+    private final SeatRowRepository seatRowRepository;
+
+    private final SeatRowConverter seatRowConverter;
 
     @Autowired
-    SeatRowConverter seatRowConverter;
+    public SeatRowService(SeatRowRepository seatRowRepository, SeatRowConverter seatRowConverter) {
+        this.seatRowRepository = seatRowRepository;
+        this.seatRowConverter = seatRowConverter;
+    }
 
     public List<SeatRowDTO> getAllSeatRows() {
         List<SeatRow> seatRows = seatRowRepository.findAll();
