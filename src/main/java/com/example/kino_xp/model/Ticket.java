@@ -1,5 +1,15 @@
 package com.example.kino_xp.model;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +35,4 @@ public class Ticket {
     private Viewing viewing;
     private int hall;
     private double price;
-
-
 }

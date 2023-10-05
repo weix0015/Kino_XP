@@ -18,6 +18,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
 
 @RestController
+
 public class UserController {
 
   @Autowired
