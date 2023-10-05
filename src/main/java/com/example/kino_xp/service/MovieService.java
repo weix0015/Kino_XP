@@ -1,8 +1,8 @@
 package com.example.kino_xp.service;
 
-import com.example.converter.MovieConverter;
-import com.example.dto.MovieDTO;
-import com.example.exception.MovieNotFoundException;
+import com.example.kino_xp.converter.MovieConverter;
+import com.example.kino_xp.dto.MovieDTO;
+import com.example.kino_xp.exception.MovieNotFoundException;
 import com.example.kino_xp.model.Movie;
 import com.example.kino_xp.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +67,7 @@ public class MovieService {
     Optional<Movie> movie=movieRepository.findById(id);
     if (movie.isPresent()) {
      movieRepository.delete(movie.get());
-    }else{
+    } else {
       throw new MovieNotFoundException("The movie is not found with id: "+id);
     }
   }

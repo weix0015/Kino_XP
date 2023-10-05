@@ -1,6 +1,6 @@
-package com.example.converter;
+package com.example.kino_xp.converter;
 
-import com.example.dto.MovieDTO;
+import com.example.kino_xp.dto.MovieDTO;
 import com.example.kino_xp.model.Movie;
 import org.springframework.stereotype.Component;
 
