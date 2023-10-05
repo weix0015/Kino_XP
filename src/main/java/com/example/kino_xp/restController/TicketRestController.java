@@ -34,7 +34,7 @@ public class TicketRestController {
         return ResponseEntity.ok(ticketDTO);
     }
 
-    @PutMapping("/students/{id}")
+    @PutMapping("/tickets/{id}")
     public ResponseEntity<TicketDTO> putTicket(@PathVariable int id, @RequestBody TicketDTO ticketDTO) {
         TicketDTO updateTicketDTO = ticketService.updateTicket(id, ticketDTO);
         return ResponseEntity.ok(updateTicketDTO);

@@ -1,11 +1,18 @@
 package com.example.kino_xp.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.*;
 
 import java.time.LocalDateTime;
-
+@Getter
+@Setter
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Viewing {
 
     @Id
@@ -16,51 +23,8 @@ public class Viewing {
     private int hall;
     private LocalDateTime showEndTime;
 
-    //Constructors
-    public Viewing() {
 
 
-    }
-
-    public Viewing(int id, LocalDateTime showTime, int hall, LocalDateTime showEndTime) {
-        this.id = id;
-        this.showTime = showTime;
-        this.hall = hall;
-        this.showEndTime = showEndTime;
-    }
-
-    //Getters and Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getShowTime() {
-        return showTime;
-    }
-
-    public void setShowTime(LocalDateTime showTime) {
-        this.showTime = showTime;
-    }
-
-    public int getHall() {
-        return hall;
-    }
-
-    public void setHall(int hall) {
-        this.hall = hall;
-    }
-
-    public LocalDateTime getShowEndTime() {
-        return showEndTime;
-    }
-
-    public void setShowEndTime(LocalDateTime showEndTime) {
-        this.showEndTime = showEndTime;
-    }
 }
 
 

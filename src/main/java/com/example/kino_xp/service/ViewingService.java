@@ -1,7 +1,6 @@
 package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.ViewingConverter;
-import com.example.kino_xp.dto.TicketDTO;
 import com.example.kino_xp.dto.ViewingDTO;
 import com.example.kino_xp.model.Viewing;
 import com.example.kino_xp.repository.ViewingRepository;
@@ -52,7 +51,7 @@ public class ViewingService {
         return viewingConverter.viewingToDTO(savedViewing);
     }
 
-    public void deleteTicketById(int id) {
+    public void deleteViewingById(int id) {
         Optional<Viewing> viewing = viewingRepository.findById(id);
         if (viewing.isPresent()) {
             viewingRepository.deleteById(id);
