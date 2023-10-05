@@ -67,7 +67,7 @@ public class MovieService {
     Optional<Movie> movie=movieRepository.findById(id);
     if (movie.isPresent()) {
      movieRepository.delete(movie.get());
-    }else{
+    } else {
       throw new MovieNotFoundException("The movie is not found with id: "+id);
     }
   }
