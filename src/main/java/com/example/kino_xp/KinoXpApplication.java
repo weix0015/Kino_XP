@@ -4,8 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
-@ComponentScan(basePackages = "com.example.converter")
+@SpringBootApplication(scanBasePackages = "com.example.kino_xp")
 public class KinoXpApplication {
 
 
