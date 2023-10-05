@@ -15,11 +15,15 @@ import java.util.stream.Collectors;
 @Service
 public class SeatService
 {
-    @Autowired
-    SeatRepository seatRepository;
+    private final SeatRepository seatRepository;
+
+    private final SeatConverter seatConverter;
 
     @Autowired
-    SeatConverter seatConverter;
+    public SeatService(SeatRepository seatRepository, SeatConverter seatConverter) {
+        this.seatRepository = seatRepository;
+        this.seatConverter = seatConverter;
+    }
     public List<SeatDTO> getAllSeats() {
         List<Seat> seats = seatRepository.findAll();
         return seats.stream()
