@@ -4,6 +4,7 @@ import com.example.kino_xp.dto.UserDTO;
 import com.example.kino_xp.dto.UserLoginDTO;
 import com.example.kino_xp.model.User;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Component
 public class UserConverter {

@@ -6,18 +6,17 @@ import com.example.kino_xp.model.User;
 import com.example.kino_xp.repository.SeatRepository;
 import com.example.kino_xp.repository.SeatRowRepository;
 import com.example.kino_xp.repository.UserRepository;
-import org.checkerframework.checker.units.qual.A;
 import com.example.kino_xp.model.Genre;
 import com.example.kino_xp.model.Movie;
-import com.example.kino_xp.model.User;
 import com.example.kino_xp.model.Viewing;
 import com.example.kino_xp.repository.MovieRepository;
-import com.example.kino_xp.repository.UserRepository;
 import com.example.kino_xp.repository.ViewingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
