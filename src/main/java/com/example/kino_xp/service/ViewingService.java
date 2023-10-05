@@ -69,6 +69,7 @@ public class ViewingService {
         Optional<Viewing> existingViewing = viewingRepository.findById(id);
         if(existingViewing.isPresent()){
             Viewing viewingToUpdate = viewingConverter.toEntity(viewingDTO);
+            viewingToUpdate.setId(id);
             Viewing savedViewing = viewingRepository.save(viewingToUpdate);
             return viewingConverter.viewingToDTO(savedViewing);
         } else {
