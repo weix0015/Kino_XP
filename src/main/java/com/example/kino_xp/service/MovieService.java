@@ -71,5 +71,12 @@ public class MovieService {
       throw new MovieNotFoundException("The movie is not found with id: "+id);
     }
   }
+   // get the all movies by title
+  public List<MovieDTO>getAllMoviesByTitle(String title) {
+   List<Movie>movies=movieRepository.findAllByTitle(title);
+   return movies.stream()
+           .map(movieConverter::movieToDTO)
+           .collect(Collectors.toList());
+  }
 
 }
