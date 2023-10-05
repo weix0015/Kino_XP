@@ -10,25 +10,29 @@ import lombok.Setter;
 
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-public class Ticket {
-    @Getter
-    @Setter
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.time.LocalDateTime;
+@Getter
+@Setter
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-
     @ManyToOne
-    @JoinColumn(name = "user", referencedColumnName = "id")
+    @JoinColumn(name = "ticket", referencedColumnName = "id")
     @JsonBackReference
     private User user;
+    private LocalDateTime dateOfPurchase;
 
-
-    //private List<Row> rows;
-    //private List<Seat> seats;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Viewing viewing;
+    private int hall;
+    private double price;
 }
