@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -25,5 +27,8 @@ public class Ticket {
     @JsonBackReference
     private User user;
 
-    private String whatever;
+
+    //private List<Row> rows;
+    //private List<Seat> seats;
+
 }
