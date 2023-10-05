@@ -21,7 +21,7 @@ public class MovieController {
         List<MovieDTO> movies = movieService.getAllTheMovie();
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
-
+  // creat a movie
     @PostMapping("/movies")
     public ResponseEntity<MovieDTO>postMovie(@RequestBody MovieDTO movieDTO) {
         MovieDTO creatMovie = movieService.createMovie(movieDTO);
