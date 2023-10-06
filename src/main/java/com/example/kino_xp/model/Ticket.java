@@ -39,4 +39,5 @@ public class Ticket {
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Seat> seats;
+
 }

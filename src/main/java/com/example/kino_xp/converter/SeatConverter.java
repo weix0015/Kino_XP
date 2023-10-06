@@ -19,7 +19,7 @@ public class SeatConverter
     public SeatDTO toDTO(Seat seat){
         return new SeatDTO(
                 seat.getSeatNumber(),
-                seat.getRow(),
+                seat.getSeatRow(),
                 seat.getTicket()
         );
     }

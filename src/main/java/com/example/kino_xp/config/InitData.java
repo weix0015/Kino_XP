@@ -48,7 +48,15 @@ public class InitData implements CommandLineRunner {
     u1.setPassword("$2a$12$u6UI8steCkpOVSVEpvO5UeAuK28jEIeOkBSpXjsTFbRYKb1JXsVlW"); //password i plain text
 
     userRepository.save(u1);
+
     //Test Ticket
+    Seat testSeat = new Seat();
+    SeatRow seatRow1 = new SeatRow();
+    //SETUP TEST SEAT_ROW
+    seatRow1.setSeatList(new ArrayList<Seat>(Arrays.asList(testSeat)));
+    seatRow1.setSeatRowNumber(1);
+    seatRowRepository.save(seatRow1);
+
     Ticket t1 = new Ticket();
     t1.setUser(u1);
     t1.setHall(1);
@@ -59,17 +67,11 @@ public class InitData implements CommandLineRunner {
 
 
     //SETUP TEST SEAT
-    Seat testSeat = new Seat();
-    testSeat.setTicket(t1);
     testSeat.setSeatNumber(1);
     testSeat.setTicket(t1);
+    testSeat.setSeatRow(seatRow1);
     seatRepository.save(testSeat);
 
-    //SETUP TEST SEAT_ROW
-    SeatRow seatRow1 = new SeatRow();
-    seatRow1.setSeatList(new ArrayList<Seat>(Arrays.asList(testSeat)));
-    seatRow1.setSeatRowNumber(1);
-    seatRowRepository.save(seatRow1);
 
     //Test movie
     Movie m1 = new Movie();
@@ -87,6 +89,8 @@ public class InitData implements CommandLineRunner {
     v1.setShowTime(LocalDateTime.of(2021, 5, 5, 12, 30, 30));
     v1.setShowEndTime(LocalDateTime.of(2021, 5, 5, 14, 30, 30));
     viewingRepository.save(v1);
+
+
 
 
   }

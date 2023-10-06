@@ -1,6 +1,7 @@
 package com.example.kino_xp.dto;
 
 import com.example.kino_xp.model.Seat;
+import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.model.User;
 import com.example.kino_xp.model.Viewing;
 
