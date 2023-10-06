@@ -1,9 +1,8 @@
 package com.example.kino_xp.service;
 
-import com.example.kino_xp.converter.SeatConverter;
 import com.example.kino_xp.converter.SeatRowConverter;
 import com.example.kino_xp.dto.SeatRowDTO;
-import com.example.kino_xp.exception.SeatRowNotFoundExeption;
+import com.example.kino_xp.exception.SeatRowNotFoundException;
 import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.repository.SeatRowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +37,14 @@ public class SeatRowService {
         if (optionalSeatRow.isPresent()) {
             return seatRowConverter.toDTO(optionalSeatRow.get());
         } else {
-            throw new SeatRowNotFoundExeption("Row not found with id: " + id);
+            throw new SeatRowNotFoundException("Row not found with id: " + id);
         }
     }
 
     public SeatRowDTO updateSeatRowBySeatRowNumber(int seatRowNumber, SeatRowDTO seatRowDTO) {
         Optional<SeatRow> existingSeatRow = seatRowRepository.findById(seatRowNumber);
         if (existingSeatRow.isEmpty()) {
-            throw new SeatRowNotFoundExeption("Could not find seat with seat number: " + seatRowNumber);
+            throw new SeatRowNotFoundException("Could not find seat with seat number: " + seatRowNumber);
         } else {
             SeatRow seatRowToUpdate = seatRowConverter.toEntity(seatRowDTO);
             seatRowToUpdate.setSeatRowNumber(seatRowNumber);

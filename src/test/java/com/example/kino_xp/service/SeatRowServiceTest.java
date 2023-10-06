@@ -2,7 +2,7 @@ package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.SeatRowConverter;
 import com.example.kino_xp.dto.SeatRowDTO;
-import com.example.kino_xp.exception.SeatRowNotFoundExeption;
+import com.example.kino_xp.exception.SeatRowNotFoundException;
 import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.repository.SeatRowRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,7 +81,7 @@ class SeatRowServiceTest {
     @Test
     void getSeatRowBySeatRowNumber_RowNotFound() {
         when(mockedSeatRowRepository.findById(3)).thenReturn(Optional.empty());
-        assertThrows(SeatRowNotFoundExeption.class, () -> seatRowService.getSeatRowBySeatRowNumber(3));
+        assertThrows(SeatRowNotFoundException.class, () -> seatRowService.getSeatRowBySeatRowNumber(3));
 
     }
 
@@ -95,7 +95,7 @@ class SeatRowServiceTest {
     void updateSeatRowBySeatRowNumber_RowNotFound() {
         SeatRowDTO updatedSeatRowDTO = new SeatRowDTO(3, new ArrayList<>());
         when(mockedSeatRowRepository.findById(3)).thenReturn(Optional.empty());
-        assertThrows(SeatRowNotFoundExeption.class, () -> seatRowService.updateSeatRowBySeatRowNumber(3, updatedSeatRowDTO));
+        assertThrows(SeatRowNotFoundException.class, () -> seatRowService.updateSeatRowBySeatRowNumber(3, updatedSeatRowDTO));
 
     }
 }

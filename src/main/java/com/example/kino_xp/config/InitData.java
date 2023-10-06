@@ -1,16 +1,7 @@
 package com.example.kino_xp.config;
 
-import com.example.kino_xp.model.Seat;
-import com.example.kino_xp.model.SeatRow;
-import com.example.kino_xp.model.User;
-import com.example.kino_xp.repository.SeatRepository;
-import com.example.kino_xp.repository.SeatRowRepository;
-import com.example.kino_xp.repository.UserRepository;
-import com.example.kino_xp.model.Genre;
-import com.example.kino_xp.model.Movie;
-import com.example.kino_xp.model.Viewing;
-import com.example.kino_xp.repository.MovieRepository;
-import com.example.kino_xp.repository.ViewingRepository;
+import com.example.kino_xp.model.*;
+import com.example.kino_xp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -36,6 +27,9 @@ public class InitData implements CommandLineRunner {
 
   @Autowired
   SeatRowRepository seatRowRepository;
+
+  @Autowired
+  HallRepository hallRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -63,6 +57,13 @@ public class InitData implements CommandLineRunner {
     seatRowRepository.save(seatRow1);
 
     userRepository.save(u1);
+
+    //SETUP TEST HALL
+    Hall hall1 = new Hall();
+    hall1.setId(1);
+    hall1.setSeatRows(new ArrayList<SeatRow>(Arrays.asList(seatRow1)));
+
+    hallRepository.save(hall1);
 
     Movie m1 = new Movie();
     m1.setTitle("Barbie");
