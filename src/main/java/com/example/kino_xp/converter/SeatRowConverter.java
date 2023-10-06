@@ -11,13 +11,15 @@ public class SeatRowConverter
     {
         return new SeatRow(
                 rowDTO.rowNumber(),
-                rowDTO.seatList()
+                rowDTO.seatList(),
+                rowDTO.hall()
         )
                 ;}
     public SeatRowDTO toDTO(SeatRow seatRow){
         return new SeatRowDTO(
                 seatRow.getSeatRowNumber(),
-                seatRow.getSeatList()
+                seatRow.getSeatList(),
+                seatRow.getHall()
         );
     }
 }

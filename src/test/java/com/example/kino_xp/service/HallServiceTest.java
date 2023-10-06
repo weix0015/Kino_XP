@@ -3,6 +3,7 @@ package com.example.kino_xp.service;
 import com.example.kino_xp.converter.HallConverter;
 import com.example.kino_xp.dto.HallDTO;
 import com.example.kino_xp.model.Hall;
+import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.repository.HallRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class HallServiceTest {
 
   Hall hallToSave = new Hall(
     1,
-    new ArrayList<>()
+    new ArrayList<>(),
   );
 
   @BeforeEach

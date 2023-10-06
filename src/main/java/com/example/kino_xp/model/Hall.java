@@ -1,6 +1,7 @@
 package com.example.kino_xp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,10 @@ public class Hall {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
-  @JsonBackReference
+  @JsonManagedReference
   private List<SeatRow> seatRows = new ArrayList<>();
+
+  public Hall(int id){
+    this.id = id;
+  }
 }

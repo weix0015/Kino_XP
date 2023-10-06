@@ -3,6 +3,7 @@ package com.example.kino_xp.service;
 import com.example.kino_xp.converter.SeatRowConverter;
 import com.example.kino_xp.dto.SeatRowDTO;
 import com.example.kino_xp.exception.SeatRowNotFoundException;
+import com.example.kino_xp.model.Hall;
 import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.repository.SeatRowRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,8 @@ class SeatRowServiceTest {
 
     SeatRow seatRowToSave = new SeatRow(
             1,
-            new ArrayList<>()
+            new ArrayList<>(),
+            new Hall(1)
     );
 
     @BeforeEach
@@ -93,7 +95,7 @@ class SeatRowServiceTest {
 
     @Test
     void updateSeatRowBySeatRowNumber_RowNotFound() {
-        SeatRowDTO updatedSeatRowDTO = new SeatRowDTO(3, new ArrayList<>());
+        SeatRowDTO updatedSeatRowDTO = new SeatRowDTO(3, new ArrayList<>(), new Hall(1));
         when(mockedSeatRowRepository.findById(3)).thenReturn(Optional.empty());
         assertThrows(SeatRowNotFoundException.class, () -> seatRowService.updateSeatRowBySeatRowNumber(3, updatedSeatRowDTO));
 
