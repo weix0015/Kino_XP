@@ -52,15 +52,15 @@ public class SeatService
         }
     }
 
-    public boolean isSeatReserved(int seatNumber) {
+    public boolean isSeatReserved(int seatNumber)
+    {
         Optional<Seat> optionalSeat = seatRepository.findById(seatNumber);
-        if (optionalSeat.isPresent()) {
+        if (optionalSeat.isPresent()){
             Seat seat = optionalSeat.get();
-            return seat.isReserved();
-        } else {
-            throw new SeatNotFoundException("Seat not found with seat number: " + seatNumber);
+            if (seat.getTicket() != null){
+                return true;
+            }
         }
+        return false;
     }
-
-
 }

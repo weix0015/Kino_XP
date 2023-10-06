@@ -47,7 +47,7 @@ public class SeatController
         SeatDTO updatedSeatDTO = new SeatDTO(
                 seatDTO.seatNumber(),
                 seatDTO.row(),
-                !isReserved // Toggle the reserved status
+                seatDTO.ticket()
         );
 
         // Save the updated seatDTO

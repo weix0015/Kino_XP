@@ -13,7 +13,8 @@ public class TicketConverter {
                 ticket.getDateOfPurchase(),
                 ticket.getPrice(),
                 ticket.getViewing(),
-                ticket.getHall()
+                ticket.getHall(),
+                ticket.getSeats()
         );
     }
 
@@ -25,7 +26,8 @@ public class TicketConverter {
                 ticketDTO.dateOfPurchase(),
                 ticketDTO.viewing(),
                 ticketDTO.hall(),
-                ticketDTO.price()
+                ticketDTO.price(),
+                ticketDTO.seats()
         );
     }
 }

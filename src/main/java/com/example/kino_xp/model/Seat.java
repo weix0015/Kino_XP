@@ -20,7 +20,10 @@ public class Seat {
     @JoinColumn(name = "seatRowNumber1")
     @JsonBackReference
     private SeatRow row;
-    //private Ticket ticket;
 
-    private boolean reserved;
+    @ManyToOne
+    @JoinColumn(name = "ticket")
+    @JsonBackReference
+    private Ticket ticket;
+
 }

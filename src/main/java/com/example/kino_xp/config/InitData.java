@@ -3,14 +3,12 @@ package com.example.kino_xp.config;
 import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.model.User;
-import com.example.kino_xp.repository.SeatRepository;
-import com.example.kino_xp.repository.SeatRowRepository;
-import com.example.kino_xp.repository.UserRepository;
+import com.example.kino_xp.repository.*;
 import com.example.kino_xp.model.Genre;
 import com.example.kino_xp.model.Movie;
 import com.example.kino_xp.model.Viewing;
-import com.example.kino_xp.repository.MovieRepository;
-import com.example.kino_xp.repository.ViewingRepository;
+import com.example.kino_xp.model.Ticket;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -37,6 +35,9 @@ public class InitData implements CommandLineRunner {
   @Autowired
   SeatRowRepository seatRowRepository;
 
+  @Autowired
+  TicketRepository ticketRepository;
+
   @Override
   public void run(String... args) throws Exception {
     //SETUP TEST USER
@@ -47,23 +48,30 @@ public class InitData implements CommandLineRunner {
     u1.setPassword("$2a$12$u6UI8steCkpOVSVEpvO5UeAuK28jEIeOkBSpXjsTFbRYKb1JXsVlW"); //password i plain text
 
     userRepository.save(u1);
+    //Test Ticket
+    Ticket t1 = new Ticket();
+    t1.setUser(u1);
+    t1.setHall(1);
+    t1.setPrice(100);
+    t1.setDateOfPurchase(LocalDateTime.of(2021, 5, 5, 12, 30, 30));
+    t1.setSeats(new ArrayList<Seat>());
+    ticketRepository.save(t1);
+
 
     //SETUP TEST SEAT
     Seat testSeat = new Seat();
-    testSeat.setReserved(true);
+    testSeat.setTicket(t1);
     testSeat.setSeatNumber(1);
-
+    testSeat.setTicket(t1);
     seatRepository.save(testSeat);
 
     //SETUP TEST SEAT_ROW
     SeatRow seatRow1 = new SeatRow();
     seatRow1.setSeatList(new ArrayList<Seat>(Arrays.asList(testSeat)));
     seatRow1.setSeatRowNumber(1);
-
     seatRowRepository.save(seatRow1);
 
-    userRepository.save(u1);
-
+    //Test movie
     Movie m1 = new Movie();
     m1.setTitle("Barbie");
     m1.setGenre(Genre.COMEDY);
@@ -71,7 +79,7 @@ public class InitData implements CommandLineRunner {
     m1.setShowLength(LocalTime.of(2, 30, 30));
 
     movieRepository.save(m1);
-
+    //Test Viewing
     Viewing v1 = new Viewing();
     v1.setHall(1);
     v1.setId(1);
@@ -79,5 +87,7 @@ public class InitData implements CommandLineRunner {
     v1.setShowTime(LocalDateTime.of(2021, 5, 5, 12, 30, 30));
     v1.setShowEndTime(LocalDateTime.of(2021, 5, 5, 14, 30, 30));
     viewingRepository.save(v1);
+
+
   }
 }

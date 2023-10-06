@@ -13,14 +13,14 @@ public class SeatConverter
         return new Seat(
                 seatDTO.seatNumber(),
                 seatDTO.row(),
-                seatDTO.reserved()
+                seatDTO.ticket()
         )
     ;}
     public SeatDTO toDTO(Seat seat){
         return new SeatDTO(
                 seat.getSeatNumber(),
                 seat.getRow(),
-                seat.isReserved()
+                seat.getTicket()
         );
     }
 }

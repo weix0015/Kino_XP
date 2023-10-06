@@ -1,11 +1,13 @@
 package com.example.kino_xp.dto;
 
+import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.model.User;
 import com.example.kino_xp.model.Viewing;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-public record TicketDTO(int id, User user, LocalDateTime dateOfPurchase, double price, Viewing viewing, int hall) {
+public record TicketDTO(int id, User user, LocalDateTime dateOfPurchase, double price, Viewing viewing, int hall, List<Seat> seats) {
     @Override
     public int id() {
         return id;
