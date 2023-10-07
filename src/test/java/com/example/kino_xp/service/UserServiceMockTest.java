@@ -28,6 +28,9 @@ class UserServiceMockTest {
     @Autowired
     UserConverter userConverter;
 
+    @Autowired
+    TicketService ticketService;
+
     UserService userService;
 
 
@@ -43,8 +46,8 @@ class UserServiceMockTest {
 
     //ARRANGE
     @BeforeEach
-    void init(){
-        userService = new UserService(mockedUserRepository, userConverter);
+    void init() {
+        userService = new UserService(mockedUserRepository, userConverter, ticketService);
         User user1 = new User();
         user1.setId(1);
         user1.setName("Mikkel");

@@ -20,7 +20,7 @@ public class Viewing {
     private int hall;
     private LocalDateTime showEndTime;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "ticket-id")
     @JsonBackReference("ticketReference")
     private Ticket ticket;

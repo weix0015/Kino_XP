@@ -40,14 +40,6 @@ public class InitData implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    //SETUP TEST USER
-    User u1 = new User();
-    u1.setName("Mikkel");
-    u1.setEmail("MikkelsEmail@Email.com");
-    u1.setAdmin(true);
-    u1.setPassword("$2a$12$u6UI8steCkpOVSVEpvO5UeAuK28jEIeOkBSpXjsTFbRYKb1JXsVlW"); //password i plain text
-
-    userRepository.save(u1);
 
     //Test Ticket
     Seat testSeat = new Seat();
@@ -57,12 +49,27 @@ public class InitData implements CommandLineRunner {
     seatRow1.setSeatRowNumber(1);
     seatRowRepository.save(seatRow1);
 
+    //SETUP TEST USER
+    User u1 = new User();
+    u1.setName("Mikkel");
+    u1.setEmail("MikkelsEmail@Email.com");
+    u1.setAdmin(true);
+    u1.setPassword("$2a$12$u6UI8steCkpOVSVEpvO5UeAuK28jEIeOkBSpXjsTFbRYKb1JXsVlW"); //password i plain text
+
+
+    userRepository.save(u1);
+
+    Viewing v1 = new Viewing();
+    v1.setId(1);
+    viewingRepository.save(v1);
+
     Ticket t1 = new Ticket();
     t1.setUser(u1);
     t1.setHall(1);
     t1.setPrice(100);
     t1.setDateOfPurchase(LocalDateTime.of(2021, 5, 5, 12, 30, 30));
     t1.setSeats(new ArrayList<Seat>());
+    t1.setViewing(v1);
     ticketRepository.save(t1);
 
 
@@ -81,8 +88,9 @@ public class InitData implements CommandLineRunner {
     m1.setShowLength(LocalTime.of(2, 30, 30));
 
     movieRepository.save(m1);
+
     //Test Viewing
-    Viewing v1 = new Viewing();
+
     v1.setHall(1);
     v1.setId(1);
     v1.setTicket(t1);

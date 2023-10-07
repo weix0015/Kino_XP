@@ -23,7 +23,7 @@ public class User
     private String email;
     @JsonIgnore
     private String password;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     @JsonManagedReference("userReference")
     private List<Ticket> tickets = new ArrayList<>();
     private boolean admin;

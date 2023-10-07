@@ -27,19 +27,19 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "ticket", referencedColumnName = "id")
     @JsonBackReference("userReference")
     private User user;
     private LocalDateTime dateOfPurchase;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JsonManagedReference("ticketReference")
     private Viewing viewing;
     private int hall;
     private double price;
 
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ticket")
     @JsonManagedReference("ticketReference")
     private List<Seat> seats;
 
