@@ -85,7 +85,8 @@ public class InitData implements CommandLineRunner {
     Viewing v1 = new Viewing();
     v1.setHall(1);
     v1.setId(1);
-    v1.setTicket(null);
+    v1.setTicket(t1);
+    v1.setMovie(m1);
     v1.setShowTime(LocalDateTime.of(2021, 5, 5, 12, 30, 30));
     v1.setShowEndTime(LocalDateTime.of(2021, 5, 5, 14, 30, 30));
     viewingRepository.save(v1);

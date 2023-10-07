@@ -12,20 +12,19 @@ import java.time.LocalDateTime;
 public class Viewing {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private LocalDateTime showTime;
-    @Column
     private int hall;
-    @Column
     private LocalDateTime showEndTime;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "ticket-id")
     private Ticket ticket;
 
+    @OneToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
 
 }

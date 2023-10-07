@@ -59,8 +59,7 @@ public class UserController {
   public ResponseEntity<String> doLogin(Model model, HttpSession session,
                                         @RequestBody UserLoginDTO userLoginDTO) {
     if (sessionService.isLoggedIn(session)) {
-      // User is already logged in, handle accordingly
-      // You can return an error response or redirect to another page
+      // User is already logged in
       return ResponseEntity.status(HttpStatus.CONFLICT).body("User is already logged in");
     }
 

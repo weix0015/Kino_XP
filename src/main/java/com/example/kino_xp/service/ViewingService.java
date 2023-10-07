@@ -25,10 +25,10 @@ public class ViewingService {
     }
 
     public List<ViewingDTO> getAllViewings() {
-        List<ViewingDTO> viewings = viewingRepository.findAll().stream().
-                map(viewingConverter::viewingToDTO).
-                collect(Collectors.toList());
-        return viewings;
+        List<Viewing> viewings = viewingRepository.findAll();
+                return viewings.stream()
+                        .map(viewingConverter::viewingToDTO)
+                        .collect(Collectors.toList());
     }
 
     public ViewingDTO getViewingById(int id) {

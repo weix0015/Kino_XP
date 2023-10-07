@@ -26,9 +26,9 @@ public class TicketService {
 
 
     public List<TicketDTO> getAllTickets() {
-        List<TicketDTO> tickets = ticketRepository.findAll().stream().
-                map(ticketConverter::ticketToDTO).
-                collect(Collectors.toList());
+        List<TicketDTO> tickets = ticketRepository.findAll().stream()
+                .map(ticketConverter::ticketToDTO)
+                .collect(Collectors.toList());
         return tickets;
     }
 

@@ -8,7 +8,7 @@ import com.example.kino_xp.model.Viewing;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record TicketDTO(int id, User user, LocalDateTime dateOfPurchase, double price, Viewing viewing, int hall, List<Seat> seats) {
+public record TicketDTO(int id, User user, LocalDateTime dateOfPurchase, double price, Viewing viewing, int hall, List<SeatDTO> seats) {
     @Override
     public int id() {
         return id;

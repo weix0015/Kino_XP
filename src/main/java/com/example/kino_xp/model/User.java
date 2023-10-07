@@ -1,5 +1,6 @@
 package com.example.kino_xp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,6 +21,7 @@ public class User
     private int id;
     private String name;
     private String email;
+    @JsonIgnore
     private String password;
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
