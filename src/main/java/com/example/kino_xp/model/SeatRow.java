@@ -22,6 +22,6 @@ public class SeatRow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int seatRowNumber;
     @OneToMany(mappedBy = "seatRow", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference("seatRowReference")
     private List<Seat> seatList = new ArrayList<>();
 }

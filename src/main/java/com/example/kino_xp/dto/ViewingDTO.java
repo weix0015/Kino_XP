@@ -2,6 +2,7 @@ package com.example.kino_xp.dto;
 
 import com.example.kino_xp.model.Movie;
 import com.example.kino_xp.model.Ticket;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.time.LocalDateTime;
 

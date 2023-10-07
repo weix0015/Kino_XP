@@ -3,6 +3,7 @@ package com.example.kino_xp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,17 +29,18 @@ public class Ticket {
     private int id;
     @ManyToOne
     @JoinColumn(name = "ticket", referencedColumnName = "id")
-    @JsonBackReference
+    @JsonBackReference("userReference")
     private User user;
     private LocalDateTime dateOfPurchase;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference("ticketReference")
     private Viewing viewing;
     private int hall;
     private double price;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonManagedReference("ticketReference")
     private List<Seat> seats;
 
 }

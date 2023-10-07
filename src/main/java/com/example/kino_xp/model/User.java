@@ -24,7 +24,7 @@ public class User
     @JsonIgnore
     private String password;
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
+    @JsonManagedReference("userReference")
     private List<Ticket> tickets = new ArrayList<>();
     private boolean admin;
 

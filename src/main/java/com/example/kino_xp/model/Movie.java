@@ -1,9 +1,7 @@
 package com.example.kino_xp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalTime;
@@ -23,5 +21,9 @@ public class Movie {
   private Genre genre;
   private LocalTime showLength;
   private int age;
+  @OneToOne
+  @JoinColumn(name = "viewing_id")
+  @JsonBackReference("viewingReference")
+  private Viewing viewing;
 
 }

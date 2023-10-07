@@ -18,12 +18,12 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "seatRowNumber")
-    @JsonBackReference
+    @JsonBackReference("seatRowReference")
     private SeatRow seatRow;
 
     @ManyToOne
     @JoinColumn(name = "ticket")
-    @JsonBackReference
+    @JsonBackReference("ticketReference")
     private Ticket ticket;
 
 }

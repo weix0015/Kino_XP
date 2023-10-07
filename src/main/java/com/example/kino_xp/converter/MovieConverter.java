@@ -6,23 +6,25 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MovieConverter {
-  public Movie movieToEntity(MovieDTO movieDTO) {
-    return new Movie(
-      movieDTO.id(),
-      movieDTO.title(),
-      movieDTO.genre(),
-      movieDTO.showLength(),
-      movieDTO.age()
-    );
-  }
+    public Movie movieToEntity(MovieDTO movieDTO) {
+        return new Movie(
+                movieDTO.id(),
+                movieDTO.title(),
+                movieDTO.genre(),
+                movieDTO.showLength(),
+                movieDTO.age(),
+                movieDTO.viewing()
+        );
+    }
 
-  public MovieDTO movieToDTO(Movie movie) {
-    return new MovieDTO(
-      movie.getId(),
-      movie.getTitle(),
-      movie.getGenre(),
-      movie.getShowLength(),
-      movie.getAge()
-    );
-  }
+    public MovieDTO movieToDTO(Movie movie) {
+        return new MovieDTO(
+                movie.getId(),
+                movie.getTitle(),
+                movie.getGenre(),
+                movie.getShowLength(),
+                movie.getAge(),
+                movie.getViewing()
+        );
+    }
 }

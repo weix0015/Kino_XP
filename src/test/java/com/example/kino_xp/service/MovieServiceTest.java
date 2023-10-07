@@ -53,7 +53,8 @@ class MovieServiceTest {
                 "The java",
                 Genre.ACTION,
                 LocalTime.of(3, 30, 30),
-                22
+                22,
+                null
         );
         // Act
         MovieDTO createdMovieDTO = movieService.createMovie(movieDTO);
@@ -76,7 +77,8 @@ class MovieServiceTest {
           "World",
           Genre.ADVENTURE,
           LocalTime.of(1, 30, 30),
-          18
+          18,
+                null
         );
         // Act
         MovieDTO updatedMovieDTO = movieService.updateMovie(1, movieDTO);
