@@ -94,7 +94,7 @@ public class InitData implements CommandLineRunner {
 
     v1.setHall(1);
     v1.setId(1);
-    v1.setTicket(t1);
+    v1.setTickets(Arrays.asList(t1));
     v1.setMovie(m1);
     v1.setShowTime(LocalDateTime.of(2021, 5, 5, 12, 30, 30));
     v1.setShowEndTime(LocalDateTime.of(2021, 5, 5, 14, 30, 30));
