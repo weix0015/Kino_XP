@@ -12,7 +12,7 @@ public class ViewingConverter {
                 viewing.getShowTime(),
                 viewing.getHall(),
                 viewing.getShowEndTime(),
-                viewing.getTicket(),
+                viewing.getTickets(),
                 viewing.getMovie()
         );
     }
@@ -23,7 +23,7 @@ public class ViewingConverter {
                 viewingDTO.showTime(),
                 viewingDTO.hall(),
                 viewingDTO.showEndTime(),
-                viewingDTO.ticket(),
+                viewingDTO.tickets(),
                 viewingDTO.movie()
         );
     }

@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -20,10 +22,10 @@ public class Viewing {
     private int hall;
     private LocalDateTime showEndTime;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "ticket-id")
-    @JsonBackReference("ticketReference")
-    private Ticket ticket;
+    @JsonManagedReference("viewingReference")
+    private List<Ticket> tickets;
 
     @OneToOne
     @JoinColumn(name = "movie_id")

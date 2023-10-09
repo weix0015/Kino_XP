@@ -33,8 +33,8 @@ public class Ticket {
     private User user;
     private LocalDateTime dateOfPurchase;
 
-    @OneToOne()
-    @JsonManagedReference("ticketReference")
+    @ManyToOne()
+    @JsonBackReference("viewingReference")
     private Viewing viewing;
     private int hall;
     private double price;

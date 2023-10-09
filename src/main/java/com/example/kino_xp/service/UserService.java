@@ -100,7 +100,14 @@ public class UserService {
 
             // Delete ticket from associated viewing
             for (Ticket ticket : user.get().getTickets()) {
-                ticket.getViewing().setTicket(null);
+
+                List<Ticket> ticketsInViewing = ticket.getViewing().getTickets();
+
+                for (int i = 0; i < ticketsInViewing.size(); i++){
+                    if (ticketsInViewing.get(i).getId() == ticket.getId()){
+                        ticket.getViewing().getTickets().remove(i);
+                    }
+                }
             }
 
             // Delete ticket from associated seat
