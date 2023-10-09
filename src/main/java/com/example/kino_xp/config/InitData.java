@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 @Component
 public class InitData implements CommandLineRunner {
+
   @Autowired
   UserRepository userRepository;
 

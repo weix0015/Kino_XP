@@ -1,11 +1,14 @@
 package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.MovieConverter;
+import com.example.kino_xp.converter.ViewingConverter;
 import com.example.kino_xp.dto.MovieDTO;
 import com.example.kino_xp.exception.MovieNotFoundException;
 import com.example.kino_xp.model.Genre;
 import com.example.kino_xp.model.Movie;
+import com.example.kino_xp.model.Viewing;
 import com.example.kino_xp.repository.MovieRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,8 +31,27 @@ class MovieServiceTest {
     @Autowired
     MovieRepository movieRepository;
 
+    @Autowired ViewingService viewingService;
+
+    @Autowired
+    ViewingConverter viewingConverter;
+
+    /*
+    @BeforeEach
+    void init() {
+        Movie movie1 = new Movie();
+        movie1.setAge(18);
+        movie1.setId(1);
+        movie1.setTitle("Barbie");
+        movie1.setShowLength(LocalTime.of(1, 30, 30));
+        movie1.setViewing(new Viewing());
+        movie1.setGenre(Genre.ACTION);
+        movieRepository.save(movie1);
+    }
+    */
+
     @Test
-    void getAllTheMovie() {
+    void getAllMovies() {
         // Act
         List<MovieDTO> movies = movieService.getAllTheMovie();
         // Assert
@@ -69,15 +91,43 @@ class MovieServiceTest {
 
     }
 
+
+    @Test
+    void getAllMoviesByTitle() {
+        // Arrange
+        Movie movie2 = new Movie();
+        movie2.setTitle("Batman");
+        movie2.setGenre(Genre.ACTION);
+        movie2.setShowLength(LocalTime.of(2, 0, 0));
+        movie2.setAge(18);
+        movieRepository.save(movie2);
+
+        Movie movie3 = new Movie();
+        movie3.setTitle("Hero");
+        movie3.setGenre(Genre.ACTION);
+        movie3.setShowLength(LocalTime.of(2, 10, 5));
+        movie3.setAge(18);
+        movieRepository.save(movie3);
+
+        // Act
+        List<MovieDTO> movies1 = movieService.getAllMoviesByTitle("Batman");
+        List<MovieDTO> movies2 = movieService.getAllMoviesByTitle("Hero");
+
+        // Assert
+        assertEquals(1, movies1.size());
+        assertEquals(1, movies2.size());
+        assertEquals("Batman", movies1.get(0).title());
+        assertEquals("Hero", movies2.get(0).title());
+    }
     @Test
     void updateMovie() {
         // Arrange
         MovieDTO movieDTO = new MovieDTO(
-          1,
-          "World",
-          Genre.ADVENTURE,
-          LocalTime.of(1, 30, 30),
-          18,
+                1,
+                "World",
+                Genre.ADVENTURE,
+                LocalTime.of(1, 30, 30),
+                18,
                 null
         );
         // Act
@@ -106,33 +156,5 @@ class MovieServiceTest {
 
         // Assert
         assertFalse(movieRepository.existsById(movieToDelete.getId()));
-    }
-
-    @Test
-    void getAllMoviesByTitle() {
-        // Arrange
-        Movie movie1 = new Movie();
-        movie1.setTitle("Batman");
-        movie1.setGenre(Genre.ACTION);
-        movie1.setShowLength(LocalTime.of(2, 0, 0));
-        movie1.setAge(18);
-        movieRepository.save(movie1);
-
-        Movie movie2 = new Movie();
-        movie2.setTitle("Hero");
-        movie2.setGenre(Genre.ACTION);
-        movie2.setShowLength(LocalTime.of(2, 10, 5));
-        movie2.setAge(18);
-        movieRepository.save(movie2);
-
-        // Act
-        List<MovieDTO> movies1 = movieService.getAllMoviesByTitle("Batman");
-        List<MovieDTO> movies2 = movieService.getAllMoviesByTitle("Hero");
-
-        // Assert
-        assertEquals(1, movies1.size());
-        assertEquals(1, movies2.size());
-        assertEquals("Batman", movies1.get(0).title());
-        assertEquals("Hero", movies2.get(0).title());
     }
 }

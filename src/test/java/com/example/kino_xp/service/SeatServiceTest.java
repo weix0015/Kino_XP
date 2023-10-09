@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class SeatServiceTest {
-/*
+
     @Mock
     private SeatRepository mockedSeatRepository;
 
@@ -42,7 +42,7 @@ class SeatServiceTest {
     Seat seatToSave = new Seat(
             1,
             rowToSave,
-            false
+            null
     );
 
     @BeforeEach
@@ -55,8 +55,7 @@ class SeatServiceTest {
 
         Seat seat1 = new Seat();
         seat1.setSeatNumber(1);
-        seat1.setRow(seatRow1);
-        seat1.setReserved(false);
+        seat1.setSeatRow(seatRow1);
         List<Seat> seatList = new ArrayList<>();
         seatList.add(seat1);
 
@@ -87,23 +86,21 @@ class SeatServiceTest {
 
             assertNotNull(seatDTO);
             assertEquals(1, seatToSave.getSeatNumber());
-            assertEquals(rowToSave, seatToSave.getRow());
-            assertFalse(seatToSave.isReserved());
+            assertEquals(rowToSave, seatToSave.getSeatRow());
         }
 
     }
 
-    @Test
+/*    @Test
     void updateSeat() {
         SeatDTO seatDTO= seatService.updateSeat(1, seatConverter.toDTO(seatToSave));
         seatToSave.setReserved(true);
         assertFalse(seatDTO.reserved());
-    }
+    }*/
 
     @Test
     void isSeatReserved() {
         assertFalse(seatService.isSeatReserved(1));
     }
 
- */
 }
