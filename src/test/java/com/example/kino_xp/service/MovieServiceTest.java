@@ -8,8 +8,7 @@ import com.example.kino_xp.model.Genre;
 import com.example.kino_xp.model.Movie;
 import com.example.kino_xp.model.Viewing;
 import com.example.kino_xp.repository.MovieRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -18,7 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 class MovieServiceTest {
 
@@ -51,6 +50,7 @@ class MovieServiceTest {
     */
 
     @Test
+    @Order(1)
     void getAllMovies() {
         // Act
         List<MovieDTO> movies = movieService.getAllTheMovie();
@@ -59,6 +59,7 @@ class MovieServiceTest {
     }
 
     @Test
+    @Order(2)
     void getMovieById() {
         // Act
         MovieDTO movieDTO = movieService.getMovieById(1);
@@ -68,6 +69,7 @@ class MovieServiceTest {
     }
 
     @Test
+    @Order(3)
     void createMovie() {
         // Arrange
         MovieDTO movieDTO = new MovieDTO(
@@ -93,6 +95,7 @@ class MovieServiceTest {
 
 
     @Test
+    @Order(4)
     void getAllMoviesByTitle() {
         // Arrange
         Movie movie2 = new Movie();
@@ -120,6 +123,7 @@ class MovieServiceTest {
         assertEquals("Hero", movies2.get(0).title());
     }
     @Test
+    @Order(5)
     void updateMovie() {
         // Arrange
         MovieDTO movieDTO = new MovieDTO(
@@ -142,6 +146,7 @@ class MovieServiceTest {
     }
 
     @Test
+    @Order(6)
     void deleteMovie() {
         // Arrange
         Movie movieToDelete = new Movie();
