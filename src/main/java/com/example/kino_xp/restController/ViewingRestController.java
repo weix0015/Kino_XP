@@ -22,9 +22,13 @@ public class ViewingRestController {
     }
 
     @PostMapping("/viewing")
-    public ResponseEntity<ViewingDTO> createViewing(@RequestBody ViewingDTO viewingDTO) {
+    public ResponseEntity<String> createViewing(@RequestBody ViewingDTO viewingDTO) {
         ViewingDTO createdViewing = viewingService.createViewing(viewingDTO);
-        return new ResponseEntity<>(createdViewing, HttpStatus.CREATED);
+        if (createdViewing != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Viewing created successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Viewing creation failed");
+        }
     }
 
     @GetMapping("/viewings/{id}")
