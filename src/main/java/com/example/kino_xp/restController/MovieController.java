@@ -1,12 +1,15 @@
 package com.example.kino_xp.restController;
 
 import com.example.kino_xp.dto.MovieDTO;
+import com.example.kino_xp.model.Movie;
 import com.example.kino_xp.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -15,6 +18,8 @@ public class MovieController {
 
   @Autowired
   MovieService movieService;
+
+  private final String omdbApiKey = "ceed3afe";
 
   // list of all movies
   @GetMapping("/movies")
@@ -60,4 +65,29 @@ public class MovieController {
     return ResponseEntity.ok(movies);
   }
 
+  @GetMapping("/index")
+  public List<Movie> getNowPlayingMovies() {
+    List<String> movieTitles = List.of("The Matrix", "The Matrix Reloaded", "The Matrix Revolutions");
+    RestTemplate restTemplate = new RestTemplate();
+    List<Movie> nowPlayingMovies = new ArrayList<>();
+
+    for (String movieTitle : movieTitles) {
+      String omdbApiUrl = "http://www.omdbapi.com/?apikey=" + omdbApiKey + "&t=" + movieTitle;
+      Movie movie = restTemplate.getForObject(omdbApiUrl, Movie.class);
+      nowPlayingMovies.add(movie);
+    }
+
+    return nowPlayingMovies;
+  }
+
+
+  @GetMapping("/movie-poster")
+  public String getMoviePoster(@RequestParam String title) {
+    // Lav en HTTP-anmodning til OMDB API
+    String omdbApiUrl = "http://www.omdbapi.com/?apikey=" + omdbApiKey + "&t=" + title;
+    RestTemplate restTemplate = new RestTemplate();
+    String omdbApiResponse = restTemplate.getForObject(omdbApiUrl, String.class);
+
+    return omdbApiResponse;
+  }
 }

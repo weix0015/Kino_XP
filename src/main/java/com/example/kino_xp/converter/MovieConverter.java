@@ -12,7 +12,8 @@ public class MovieConverter {
       movieDTO.title(),
       movieDTO.genre(),
       movieDTO.showLength(),
-      movieDTO.age()
+      movieDTO.age(),
+            movieDTO.posterUrl()
     );
   }
 
@@ -22,7 +23,8 @@ public class MovieConverter {
       movie.getTitle(),
       movie.getGenre(),
       movie.getShowLength(),
-      movie.getAge()
+      movie.getAge(),
+            movie.getPosterUrl()
     );
   }
 }
