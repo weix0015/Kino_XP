@@ -16,25 +16,30 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ViewingRequest {
+    private Long id;
     private LocalDateTime showTime;
     private Long hall;
     private LocalDateTime showEndTime;
     private List<Long> ticket_ids;
-    private Long movie_id;
+    private String movieTitle;
 
-    public void copy(Viewing viewing){
-        this.showTime = viewing.getShowTime();
-        this.hall = viewing.getHall();
-        this.showEndTime = viewing.getShowEndTime();
-        this.ticket_ids = viewing.getTickets().stream()
-                .map(Ticket::getId)
-                .collect(Collectors.toList());
-        this.movie_id = viewing.getMovie().getId();
+    public void copyTo(Viewing viewing) {
+        viewing.setId(id);
     }
 
-    public Viewing toViewing(){
+
+    public Viewing toViewing() {
         Viewing viewing = new Viewing();
-        copy(viewing);
+        copyTo(viewing);
         return viewing;
+    }
+
+    public Viewing getViewingEntity(ViewingRequest v) {
+        return Viewing.builder()
+                .id(v.id)
+                .showTime(v.showTime)
+                .hall(v.hall)
+                .showEndTime(v.showEndTime)
+                .build();
     }
 }

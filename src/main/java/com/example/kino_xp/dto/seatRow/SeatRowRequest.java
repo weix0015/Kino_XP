@@ -16,13 +16,13 @@ public class SeatRowRequest {
     private Long seatRowNumber;
     private List<Long> seatNumberList;
 
-    public void copy(SeatRow seatRow){
-        this.seatRowNumber = seatRow.getSeatRowNumber();
+    public void copyTo(SeatRow seatRow){
+        seatRow.setSeatRowNumber(seatRowNumber);
     }
 
     public SeatRow toSeatRow(){
         SeatRow seatRow = new SeatRow();
-        copy(seatRow);
+        copyTo(seatRow);
         return seatRow;
     }
 }

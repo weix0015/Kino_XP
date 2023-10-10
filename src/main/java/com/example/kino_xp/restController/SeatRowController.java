@@ -1,5 +1,7 @@
 package com.example.kino_xp.restController;
 
+import com.example.kino_xp.dto.seatRow.SeatRowRequest;
+import com.example.kino_xp.dto.seatRow.SeatRowResponse;
 import com.example.kino_xp.service.SeatRowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,19 +16,19 @@ public class SeatRowController {
     SeatRowService seatRowService;
 
     @GetMapping("/seat-rows")
-    public ResponseEntity<List<SeatRowDTO>> getSeatRows(){
-        List<SeatRowDTO> seatRowDTOS = seatRowService.getAllSeatRows();
-        return new ResponseEntity<>(seatRowDTOS, HttpStatus.OK);
+    public ResponseEntity<List<SeatRowResponse>> getSeatRows(){
+        List<SeatRowResponse> seatRowResponses = seatRowService.getAllSeatRows();
+        return new ResponseEntity<>(seatRowResponses, HttpStatus.OK);
     }
 
     @GetMapping("/seat-row/{seat-row-number}")
-    public ResponseEntity<SeatRowDTO> getSeatRowBySeatRowNumber(@PathVariable("seat-row-number") int seatRowNumber){
-        SeatRowDTO foundSeatRow = seatRowService.getSeatRowBySeatRowNumber(seatRowNumber);
+    public ResponseEntity<SeatRowResponse> getSeatRowBySeatRowNumber(@PathVariable("seat-row-number") Long seatRowNumber){
+        SeatRowResponse foundSeatRow = seatRowService.getSeatRowBySeatRowNumber(seatRowNumber);
         return new ResponseEntity<>(foundSeatRow, HttpStatus.OK);
     }
 
     @PutMapping("/seat-row/{seat-row-number}")
-    public ResponseEntity<SeatRowDTO> updateSeatRow(@PathVariable("seat-row-number") int seatRowNumber, @RequestBody SeatRowDTO seatRowDTO){
-        return new ResponseEntity<>(seatRowService.updateSeatRowBySeatRowNumber(seatRowNumber, seatRowDTO), HttpStatus.OK);
+    public ResponseEntity<SeatRowResponse> updateSeatRow(@PathVariable("seat-row-number") Long seatRowNumber, @RequestBody SeatRowRequest seatRowRequest){
+        return new ResponseEntity<>(seatRowService.updateSeatRowBySeatRowNumber(seatRowNumber, seatRowRequest), HttpStatus.OK);
     }
 }

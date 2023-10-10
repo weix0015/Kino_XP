@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Viewing {
 
     @Id
@@ -27,8 +28,8 @@ public class Viewing {
     @JsonManagedReference("viewingReference")
     private List<Ticket> tickets;
 
-    @OneToOne
-    @JoinColumn(name = "movie_id")
+    @ManyToOne
+    @JoinColumn(name = "title")
     @JsonManagedReference("viewingReference")
     private Movie movie;
 

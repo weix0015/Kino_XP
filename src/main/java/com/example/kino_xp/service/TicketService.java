@@ -1,6 +1,8 @@
 package com.example.kino_xp.service;
 
-import com.example.kino_xp.converter.TicketConverter;
+import com.example.kino_xp.dto.ticket.TicketRequest;
+import com.example.kino_xp.dto.ticket.TicketResponse;
+import com.example.kino_xp.exception.TicketNotFoundException;
 import com.example.kino_xp.model.Ticket;
 import com.example.kino_xp.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,69 +17,58 @@ import java.util.stream.Collectors;
 public class TicketService {
     private final TicketRepository ticketRepository;
 
-    private final TicketConverter ticketConverter;
-
     @Autowired
-    public TicketService(TicketRepository ticketRepository, TicketConverter ticketConverter) {
+    public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
-        this.ticketConverter = ticketConverter;
     }
 
 
-    public List<TicketDTO> getAllTickets() {
-        List<TicketDTO> tickets = ticketRepository.findAll().stream()
-                .map(ticketConverter::ticketToDTO)
+    public List<TicketResponse> getAllTickets() {
+        List<Ticket> tickets = ticketRepository.findAll();
+        return tickets.stream()
+                .map(TicketResponse::new)
                 .collect(Collectors.toList());
-        return tickets;
     }
 
-    public TicketDTO getTicketById(int id) {
+    public TicketResponse getTicketById(Long id) {
         Optional<Ticket> optionalTicket = ticketRepository.findById(id);
         if (optionalTicket.isPresent()) {
-            return ticketConverter.ticketToDTO(optionalTicket.get());
+            return new TicketResponse(optionalTicket.get());
         } else {
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            throw new TicketNotFoundException("Ticket with id: "
+                    + id
+                    + "could not be found");
         }
     }
 
-    public TicketDTO createTicket(TicketDTO ticketDTO){
-        Ticket ticketToSave = ticketConverter.toEntity(ticketDTO);
-        ticketToSave.setId(0);
-        Ticket savedTicket = ticketRepository.save(ticketToSave);
-        return ticketConverter.ticketToDTO(savedTicket);
+    public TicketResponse createTicket(TicketRequest ticketRequest) {
+        Ticket newTicket = ticketRequest.toTicket();
+        ticketRepository.save(newTicket);
+        return new TicketResponse(newTicket);
     }
 
 
-    public void deleteTicketById(int id){
+    public void deleteTicketById(Long id) {
         Optional<Ticket> ticket = ticketRepository.findById(id);
-        if(ticket.isPresent()){
+        if (ticket.isPresent()) {
             ticketRepository.deleteById(id);
-        } else{
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        } else {
+            throw new TicketNotFoundException("Ticket with id: "
+                    + id
+                    + " could not be found");
         }
     }
 
-    public TicketDTO updateTicket(int id, TicketDTO ticketDTO){
-        Optional<Ticket> existingTicket = ticketRepository.findById(id);
-        if(existingTicket.isPresent()){
-            Ticket ticketToUpdate = ticketConverter.toEntity(ticketDTO);
-            ticketToUpdate.setId(id);
-            Ticket savedTicket = ticketRepository.save(ticketToUpdate);
-            return ticketConverter.ticketToDTO(savedTicket);
-        } else{
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+    public TicketResponse updateTicket(Long id, TicketRequest ticketRequest) {
+        Optional<Ticket> ticketToEditOptional = ticketRepository.findById(id);
+        Ticket ticketToEdit = ticketToEditOptional.get();
+        if (ticketToEditOptional.isEmpty()) {
+            throw new TicketNotFoundException("Ticket with id: "
+                    + id
+                    + " could not be found");
+        } else {
+            ticketRequest.copyTo(ticketToEdit);
+            return new TicketResponse(ticketRepository.save(ticketToEdit));
         }
     }
 }

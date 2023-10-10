@@ -20,17 +20,14 @@ public class TicketRequest {
 
     private double price;
 
-    public void copy(Ticket ticket){
-        this.user_id = ticket.getUser().getId();
-        this.dateOfPurchase = ticket.getDateOfPurchase();
-        this.viewing_id = ticket.getViewing().getId();
-        this.hall = ticket.getHall();
-        this.price = ticket.getPrice();
+    public void copyTo(Ticket ticket){
+        ticket.setDateOfPurchase(dateOfPurchase);
+        ticket.setHall(hall);
     }
 
     public Ticket toTicket(){
         Ticket ticket = new Ticket();
-        copy(ticket);
+        copyTo(ticket);
         return ticket;
     }
 }

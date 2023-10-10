@@ -1,6 +1,7 @@
 package com.example.kino_xp.restController;
 
-import com.example.kino_xp.converter.SeatConverter;
+import com.example.kino_xp.dto.seat.SeatRequest;
+import com.example.kino_xp.dto.seat.SeatResponse;
 import com.example.kino_xp.repository.SeatRepository;
 import com.example.kino_xp.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,42 +18,38 @@ public class SeatController
     SeatService seatService;
 
     @Autowired
-    SeatConverter seatDTOConverter;
-
-    @Autowired
     SeatRepository seatRepository;
 
     @GetMapping("/seats")
-    public ResponseEntity<List<SeatDTO>> getSeats()
+    public ResponseEntity<List<SeatResponse>> getSeats()
     {
-        List<SeatDTO> seatDTOList = seatService.getAllSeats();
-        return new ResponseEntity<>(seatDTOList, HttpStatus.OK);
+        List<SeatResponse> seatResponseList = seatService.getAllSeats();
+        return new ResponseEntity<>(seatResponseList, HttpStatus.OK);
     }
 
     @GetMapping("/seat/{seatNumber}")
-    public ResponseEntity<SeatDTO> getSeat(@PathVariable("seatNumber") int seatNumber)
+    public ResponseEntity<SeatResponse> getSeat(@PathVariable("seatNumber") Long seatNumber)
     {
-        SeatDTO seatDTO = seatService.getSeatById(seatNumber);
-        return new ResponseEntity<>(seatDTO, HttpStatus.OK);
+        SeatResponse seatResponse = seatService.getSeatById(seatNumber);
+        return new ResponseEntity<>(seatResponse, HttpStatus.OK);
     }
 
     @PutMapping("/seat/{seatNumber}")
-    public ResponseEntity<SeatDTO> putUser(@PathVariable("seatNumber") int seatNumber, @RequestBody SeatDTO seatDTO) {
+    public ResponseEntity<SeatResponse> putUser(@PathVariable("seatNumber") Long seatNumber, @RequestBody SeatRequest seatRequest) {
         // Check the current reservation status
         boolean isReserved = seatService.isSeatReserved(seatNumber);
 
         // Create a new SeatDTO with the updated reserved status
-        SeatDTO updatedSeatDTO = new SeatDTO(
-                seatDTO.seatNumber(),
-                seatDTO.seatRow_id(),
-                seatDTO.ticket()
+        SeatRequest updatedSeatRequest = new SeatRequest(
+                seatRequest.getSeatNumber(),
+                seatRequest.getSeatRowNumber()
         );
 
         // Save the updated seatDTO
-        updatedSeatDTO = seatService.updateSeat(seatNumber, updatedSeatDTO);
+        SeatResponse updatedSeatResponse = seatService.updateSeat(seatNumber, updatedSeatRequest);
 
         // Return the updated seatDTO in the response
-        return new ResponseEntity<>(updatedSeatDTO, HttpStatus.OK);
+        return new ResponseEntity<>(updatedSeatResponse, HttpStatus.OK);
     }
 
 

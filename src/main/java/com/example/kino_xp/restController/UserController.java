@@ -1,5 +1,7 @@
 package com.example.kino_xp.restController;
 
+import com.example.kino_xp.dto.user.UserRequest;
+import com.example.kino_xp.dto.user.UserResponse;
 import com.example.kino_xp.model.User;
 import com.example.kino_xp.exception.UserNotFoundException;
 import com.example.kino_xp.repository.UserRepository;
@@ -29,30 +31,30 @@ public class UserController {
   SessionService sessionService;
 
   @GetMapping("/users")
-  public ResponseEntity<List<UserDTO>> getUsers() {
-    List<UserDTO> userDTOList = userService.getAllUsers();
-    return new ResponseEntity<>(userDTOList, HttpStatus.OK);
+  public ResponseEntity<List<UserResponse>> getUsers() {
+    List<UserResponse> userResponses = userService.getAllUsers();
+    return new ResponseEntity<>(userResponses, HttpStatus.OK);
   }
 
   @GetMapping("/user/id/{id}")
-  public ResponseEntity<UserDTO> getUserById(@PathVariable("id") int id) {
-    UserDTO user = userService.getUserById(id);
-    return new ResponseEntity<>(user, HttpStatus.OK);
+  public ResponseEntity<UserResponse> getUserById(@PathVariable("id") Long id) {
+    UserResponse userResponse = userService.getUserById(id);
+    return new ResponseEntity<>(userResponse, HttpStatus.OK);
   }
 
   @GetMapping("/user/email/{email}")
-  public ResponseEntity<UserDTO> getUserByEmail(@PathVariable("email") String email) {
-    UserDTO user = userService.getUserByEmail(email);
-    return new ResponseEntity<>(user, HttpStatus.OK);
+  public ResponseEntity<UserResponse> getUserByEmail(@PathVariable("email") String email) {
+    UserResponse userResponse = userService.getUserByEmail(email);
+    return new ResponseEntity<>(userResponse, HttpStatus.OK);
   }
 
   @GetMapping("/user/{name}")
-  public ResponseEntity<List<UserDTO>> getUsersByName(@PathVariable("name") String name) {
-    List<UserDTO> userDTOList = userService.getUsersByName(name);
-    return new ResponseEntity<>(userDTOList, HttpStatus.OK);
+  public ResponseEntity<List<UserResponse>> getUsersByName(@PathVariable("name") String name) {
+    List<UserResponse> userResponses = userService.getUsersByName(name);
+    return new ResponseEntity<>(userResponses, HttpStatus.OK);
   }
 
-
+/*
   @PostMapping("/login")
   public ResponseEntity<String> doLogin(Model model, HttpSession session,
                                         @RequestBody UserLoginDTO userLoginDTO) {
@@ -89,11 +91,13 @@ public class UserController {
     return ResponseEntity.status(HttpStatus.OK).body("Logout successful");
   }
 
+ */
+
 
   @PostMapping("/user")
-  public ResponseEntity<String> createUser(@RequestBody UserDTO userDTO) {
-    UserDTO user = userService.createUser(userDTO);
-    if (user != null) {
+  public ResponseEntity<String> createUser(@RequestBody UserRequest userRequest) {
+    UserResponse userResponse = userService.createUser(userRequest);
+    if (userResponse != null) {
       return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
     } else {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User creation failed");
@@ -102,12 +106,12 @@ public class UserController {
 
 
   @PutMapping("/user/{id}")
-  public ResponseEntity<UserDTO> putUser(@PathVariable("id") int id, @RequestBody UserDTO userDTO) {
-    return new ResponseEntity<>(userService.updateUser(id, userDTO), HttpStatus.OK);
+  public ResponseEntity<UserResponse> putUser(@PathVariable("id") Long id, @RequestBody UserRequest userRequest) {
+    return new ResponseEntity<>(userService.updateUser(id, userRequest), HttpStatus.OK);
   }
 
   @DeleteMapping("/user/{id}")
-  public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {
+  public ResponseEntity<String> deleteUser(@PathVariable("id") Long id) {
     try {
       userService.deleteUserById(id);
       return ResponseEntity.status(HttpStatus.OK).body("User deleted successfully");

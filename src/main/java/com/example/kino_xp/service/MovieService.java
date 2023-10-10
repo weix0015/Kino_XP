@@ -1,6 +1,5 @@
 package com.example.kino_xp.service;
 
-import com.example.kino_xp.converter.MovieConverter;
 import com.example.kino_xp.dto.movie.MovieRequest;
 import com.example.kino_xp.dto.movie.MovieResponse;
 import com.example.kino_xp.exception.MovieNotFoundException;
@@ -32,10 +31,10 @@ public class MovieService {
     }
 
     // find movie by id
-    public MovieResponse getMovieById(Long id) {
-        Optional<Movie> foundMovie = movieRepository.findById(id);
+    public MovieResponse getMovieById(String title) {
+        Optional<Movie> foundMovie = movieRepository.findById(title);
         if (foundMovie.isEmpty()) {
-            throw new MovieNotFoundException("Movie with given id: " + id + " cannot be found");
+            throw new MovieNotFoundException("Movie with given title: " + title + " cannot be found");
         } else {
             return new MovieResponse(foundMovie.get());
         }
@@ -43,25 +42,26 @@ public class MovieService {
 
     // create the movie
     public MovieResponse createMovie(MovieRequest movieRequest) {
+        Movie movieToSave = new Movie();
         if (movieRepository.existsByTitle(movieRequest.getTitle())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie with title: "
                     + movieRequest.getTitle()
                     + " already exists");
         } else {
-            Movie newMovie = movieRequest.getMovieEntity(movieRequest);
-            movieRepository.save(newMovie);
-            return new MovieResponse(newMovie);
+            movieRequest.copyTo(movieToSave);
+            movieRepository.save(movieToSave);
+            return new MovieResponse(movieToSave);
         }
     }
 
     // update the movie.
 
-    public MovieResponse updateMovie(Long id, MovieRequest movieRequest) {
-        Optional<Movie> optionalMovieToEdit = movieRepository.findById(id);
+    public MovieResponse updateMovie(String title, MovieRequest movieRequest) {
+        Optional<Movie> optionalMovieToEdit = movieRepository.findById(title);
         Movie movieToEdit = optionalMovieToEdit.get();
         if (optionalMovieToEdit.isEmpty()) {
             throw new MovieNotFoundException("Movie with id: " +
-                    id +
+                    title +
                     " could not be found");
         } else {
             movieRequest.copyTo(movieToEdit);
@@ -70,27 +70,12 @@ public class MovieService {
     }
     // The delete method.
 
-    public void deleteMovie(Long id) {
-        Optional<Movie> movie = movieRepository.findById(id);
+    public void deleteMovie(String title) {
+        Optional<Movie> movie = movieRepository.findById(title);
         if (movie.isPresent()) {
             movieRepository.delete(movie.get());
         } else {
-            throw new MovieNotFoundException("The movie is not found with id: " + id);
+            throw new MovieNotFoundException("The movie is not found with id: " + title);
         }
     }
-
-    // get the all movies by title
-    public List<MovieResponse> getAllMoviesByTitle(String title) {
-        List<Movie> foundMovies = movieRepository.findAllByTitle(title);
-        if (foundMovies.isEmpty()) {
-            throw new MovieNotFoundException("No movies with given title: "
-                    + title
-                    + " could be found");
-        } else {
-            return foundMovies.stream()
-                    .map(MovieResponse::new)
-                    .collect(Collectors.toList());
-        }
-    }
-
 }

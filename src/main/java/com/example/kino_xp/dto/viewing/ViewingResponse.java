@@ -21,7 +21,7 @@ public class ViewingResponse {
     private Long hall;
     private LocalDateTime showEndTime;
     private List<Long> ticket_ids;
-    private Long movie_id;
+    private String movieTitle;
 
     public ViewingResponse(Viewing viewing){
         this.id = viewing.getId();
@@ -31,6 +31,6 @@ public class ViewingResponse {
         this.ticket_ids = viewing.getTickets().stream()
                 .map(Ticket::getId)
                 .collect(Collectors.toList());
-        this.movie_id = viewing.getMovie().getId();
+        this.movieTitle = viewing.getMovie().getTitle();
     }
 }

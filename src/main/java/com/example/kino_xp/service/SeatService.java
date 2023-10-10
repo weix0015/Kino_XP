@@ -1,6 +1,7 @@
 package com.example.kino_xp.service;
 
-import com.example.kino_xp.converter.SeatConverter;
+import com.example.kino_xp.dto.seat.SeatRequest;
+import com.example.kino_xp.dto.seat.SeatResponse;
 import com.example.kino_xp.exception.SeatNotFoundException;
 import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.repository.SeatRepository;
@@ -12,53 +13,51 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class SeatService
-{
+public class SeatService {
     private final SeatRepository seatRepository;
 
-    private final SeatConverter seatConverter;
-
     @Autowired
-    public SeatService(SeatRepository seatRepository, SeatConverter seatConverter) {
+    public SeatService(SeatRepository seatRepository) {
         this.seatRepository = seatRepository;
-        this.seatConverter = seatConverter;
     }
-    public List<SeatDTO> getAllSeats() {
+
+    public List<SeatResponse> getAllSeats() {
         List<Seat> seats = seatRepository.findAll();
         return seats.stream()
-                .map(seatConverter::toDTO)
+                .map(SeatResponse::new)
                 .collect(Collectors.toList());
-
     }
-    public SeatDTO getSeatById(int id) {
-        Optional<Seat> optionalSeat = seatRepository.findById(id);
-        if (optionalSeat.isPresent()) {
-            return seatConverter.toDTO(optionalSeat.get());
+
+    public SeatResponse getSeatById(Long id) {
+        Optional<Seat> foundSeatOptional = seatRepository.findById(id);
+        Seat foundSeat = foundSeatOptional.get();
+        if (foundSeatOptional.isEmpty()) {
+            throw new SeatNotFoundException("The seat with the given id: "
+                    + id
+                    + " could not be found");
         } else {
-            throw new SeatNotFoundException("Seat not found with id: " + id);
+            return new SeatResponse(foundSeat);
         }
     }
 
-    public SeatDTO updateSeat(int id, SeatDTO seatDTO) {
-        Optional<Seat> existingSeat = seatRepository.findById(id);
-        if (existingSeat.isPresent()) {
-            Seat seatToUpdate=seatConverter.toEntity(seatDTO);
-            seatToUpdate.setSeatNumber(id);
-            Seat savedSeat=seatRepository.save(seatToUpdate);
-            return seatConverter.toDTO(savedSeat);
-        }else{
-            throw new SeatNotFoundException("Seat is not found with id: "+id);
+    public SeatResponse updateSeat(Long id, SeatRequest seatRequest) {
+        Optional<Seat> existingSeatOptional = seatRepository.findById(id);
+        Seat existingSeat = existingSeatOptional.get();
+        if (existingSeatOptional.isEmpty()) {
+            throw new SeatNotFoundException("The seat with the given id: "
+                    + id
+                    + " could not be found");
+        } else {
+            seatRequest.copyTo(existingSeat);
+            return new SeatResponse(seatRepository.save(existingSeat));
         }
     }
 
-    public boolean isSeatReserved(int seatNumber)
-    {
+    public boolean isSeatReserved(Long seatNumber) {
         Optional<Seat> optionalSeat = seatRepository.findById(seatNumber);
-        if (optionalSeat.isPresent()){
+        if (optionalSeat.isPresent()) {
             Seat seat = optionalSeat.get();
-            if (seat.getTicket() != null){
-                return true;
-            }
+            return seat.getTicket() != null;
         }
         return false;
     }

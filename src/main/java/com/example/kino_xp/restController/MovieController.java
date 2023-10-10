@@ -26,40 +26,33 @@ public class MovieController {
   }
 
   // create a movie
-  @PostMapping("/movies")
+  @PostMapping("/movie")
   public ResponseEntity<MovieResponse> postMovie(@RequestBody MovieRequest movieRequest) {
     MovieResponse creatMovie = movieService.createMovie(movieRequest);
     return new ResponseEntity<>(creatMovie, HttpStatus.CREATED);
   }
 
   // get movie by id
-  @GetMapping("/movie/{id}")
-  public ResponseEntity<MovieResponse> getMovieById(@PathVariable("id") Long id) {
-    MovieResponse movieResponse = movieService.getMovieById(id);
+  @GetMapping("/movie/id/{id}")
+  public ResponseEntity<MovieResponse> getMovieById(@PathVariable("id") String title) {
+    MovieResponse movieResponse = movieService.getMovieById(title);
     return ResponseEntity.ok(movieResponse);
   }
 
   // test fail
   // update movies
-  @PutMapping("/movies/{id}")
-  public ResponseEntity<MovieResponse> updateMovie(@PathVariable("id") Long id, MovieRequest movieRequest) {
-    MovieResponse updateMovie = movieService.updateMovie(id, movieRequest);
+  @PutMapping("/movie/{title}")
+  public ResponseEntity<MovieResponse> updateMovie(@PathVariable("title") String title, MovieRequest movieRequest) {
+    MovieResponse updateMovie = movieService.updateMovie(title, movieRequest);
     return ResponseEntity.ok(updateMovie);
   }
 
   // delete movies
-  @DeleteMapping("/movies/{id}")
-  public ResponseEntity<Void> deleteMovie(@PathVariable("id") Long id) {
-    movieService.deleteMovie(id);
+  @DeleteMapping("/movie/{title}")
+  public ResponseEntity<Void> deleteMovie(@PathVariable("title") String title) {
+    movieService.deleteMovie(title);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-  }
-
-  // get movie by title
-  @GetMapping("/movies/{title}")
-  public ResponseEntity<List<MovieResponse>> getAllMoviesByTitle(@PathVariable String title) {
-    List<MovieResponse> movies = movieService.getAllMoviesByTitle(title);
-    return ResponseEntity.ok(movies);
   }
 
 }

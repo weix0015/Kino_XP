@@ -23,19 +23,24 @@ public class UserRequest {
 
     private boolean admin;
 
-    public void copy(User user){
-        this.name = user.getName();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.ticket_ids = user.getTickets().stream()
-                .map(Ticket::getId)
-                .collect(Collectors.toList());
-        this.admin = user.isAdmin();
+    public User getUserEntity(UserRequest userRequest){
+        return User.builder()
+                .name(userRequest.name)
+                .email(userRequest.getEmail())
+                .password(null)
+                .admin(userRequest.isAdmin())
+                .build();
+    }
+
+    public void copyTo(User user){
+        user.setName(this.name);
+        user.setEmail(this.email);
+        user.setPassword(this.password);
     }
 
     public User toUser(){
         User user = new User();
-        copy(user);
+        copyTo(user);
         return user;
     }
 }

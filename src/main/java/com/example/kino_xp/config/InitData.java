@@ -47,7 +47,7 @@ public class InitData implements CommandLineRunner {
     SeatRow seatRow1 = new SeatRow();
     //SETUP TEST SEAT_ROW
     seatRow1.setSeatList(new ArrayList<Seat>(Arrays.asList(testSeat)));
-    seatRow1.setSeatRowNumber(1);
+    seatRow1.setSeatRowNumber(1L);
     seatRowRepository.save(seatRow1);
 
     //SETUP TEST USER
@@ -61,12 +61,12 @@ public class InitData implements CommandLineRunner {
     userRepository.save(u1);
 
     Viewing v1 = new Viewing();
-    v1.setId(1);
+    v1.setId(1L);
     viewingRepository.save(v1);
 
     Ticket t1 = new Ticket();
     t1.setUser(u1);
-    t1.setHall(1);
+    t1.setHall(1L);
     t1.setPrice(100);
     t1.setDateOfPurchase(LocalDateTime.of(2021, 5, 5, 12, 30, 30));
     t1.setSeats(new ArrayList<Seat>());
@@ -75,7 +75,7 @@ public class InitData implements CommandLineRunner {
 
 
     //SETUP TEST SEAT
-    testSeat.setSeatNumber(1);
+    testSeat.setSeatNumber(1L);
     testSeat.setTicket(t1);
     testSeat.setSeatRow(seatRow1);
     seatRepository.save(testSeat);
@@ -92,8 +92,8 @@ public class InitData implements CommandLineRunner {
 
     //Test Viewing
 
-    v1.setHall(1);
-    v1.setId(1);
+    v1.setHall(1L);
+    v1.setId(1L);
     v1.setTickets(Arrays.asList(t1));
     v1.setMovie(m1);
     v1.setShowTime(LocalDateTime.of(2021, 5, 5, 12, 30, 30));
