@@ -4,8 +4,10 @@ import com.example.kino_xp.dto.viewing.ViewingRequest;
 import com.example.kino_xp.dto.viewing.ViewingResponse;
 import com.example.kino_xp.exception.ViewingNotFoundException;
 import com.example.kino_xp.model.Movie;
+import com.example.kino_xp.model.Ticket;
 import com.example.kino_xp.model.Viewing;
 import com.example.kino_xp.repository.MovieRepository;
+import com.example.kino_xp.repository.TicketRepository;
 import com.example.kino_xp.repository.ViewingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,9 @@ public class ViewingService {
     MovieRepository movieRepository;
 
     @Autowired
+    TicketRepository ticketRepository;
+
+    @Autowired
     public ViewingService(ViewingRepository viewingRepository) {
         this.viewingRepository = viewingRepository;
     }
@@ -42,14 +47,15 @@ public class ViewingService {
             return new ViewingResponse(viewing);
         } else {
             throw new ViewingNotFoundException("Viewing with id: "
-            + id
-            + " not found");
+                    + id
+                    + " not found");
         }
     }
 
     public ViewingResponse createViewing(ViewingRequest viewingRequest) {
         Viewing viewingToSave = viewingRequest.getViewingEntity(viewingRequest);
         viewingToSave.setMovie(findMovie(viewingRequest));
+        viewingToSave.setTickets(findTickets(viewingRequest));
         Viewing savedViewing = viewingRepository.save(viewingToSave);
         return new ViewingResponse(savedViewing);
     }
@@ -60,26 +66,34 @@ public class ViewingService {
             viewingRepository.deleteById(id);
         } else {
             throw new ViewingNotFoundException("Viewing with id: "
-            + id
-            + " not found");
+                    + id
+                    + " not found");
         }
     }
 
-    public ViewingResponse updateViewing (Long id, ViewingRequest viewingRequest) {
+    public ViewingResponse updateViewing(Long id, ViewingRequest viewingRequest) {
         Optional<Viewing> viewingToEditOptional = viewingRepository.findById(id);
         Viewing viewingToEdit = viewingToEditOptional.get();
-        if(viewingToEditOptional.isPresent()){
+        if (viewingToEditOptional.isPresent()) {
             viewingRequest.copyTo(viewingToEdit);
             return new ViewingResponse(viewingRepository.save(viewingToEdit));
         } else {
             throw new ViewingNotFoundException("Viewing with id: "
-            + id
-            + " could not be found");
+                    + id
+                    + " could not be found");
         }
     }
 
-    public Movie findMovie(ViewingRequest viewingRequest){
+    public Movie findMovie(ViewingRequest viewingRequest) {
         return movieRepository.findById(viewingRequest.getMovieTitle())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "movie with this id is unknown"));
+    }
+
+    public List<Ticket> findTickets(ViewingRequest viewingRequest) {
+        return viewingRequest.getTicket_ids().stream()
+                .map(ticketRepository::findById).toList()
+                .stream()
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 }
