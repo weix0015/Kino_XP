@@ -32,22 +32,22 @@ public class ViewingRestController {
         }
     }
 
-    @GetMapping("/viewings/{id}")
+    @GetMapping("/viewing/{id}")
     public ResponseEntity <ViewingResponse> getViewingById(@PathVariable("id") Long id) {
         ViewingResponse viewingResponse = viewingService.getViewingById(id);
         return ResponseEntity.ok(viewingResponse);
     }
 
-    @PutMapping("/viewings/{id}")
+    @PutMapping("/viewing/{id}")
     public ResponseEntity<ViewingResponse> putViewing(@PathVariable Long id, @RequestBody ViewingRequest
             viewingRequest) {
         ViewingResponse updatedViewingResponse = viewingService.updateViewing(id, viewingRequest);
         return ResponseEntity.ok(updatedViewingResponse);
     }
 
-    @DeleteMapping("/viewings/{id}")
-    public ResponseEntity<Void> deleteViewing(@PathVariable Long id) {
+    @DeleteMapping("/viewing/{id}")
+    public ResponseEntity<String> deleteViewing(@PathVariable Long id) {
         viewingService.deleteViewingById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.status(HttpStatus.OK).body("Viewing deleted successfully");
     }
 }

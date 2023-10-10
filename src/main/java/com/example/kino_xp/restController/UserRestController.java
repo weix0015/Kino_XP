@@ -2,24 +2,20 @@ package com.example.kino_xp.restController;
 
 import com.example.kino_xp.dto.user.UserRequest;
 import com.example.kino_xp.dto.user.UserResponse;
-import com.example.kino_xp.model.User;
 import com.example.kino_xp.exception.UserNotFoundException;
 import com.example.kino_xp.repository.UserRepository;
 import com.example.kino_xp.service.SessionService;
 import com.example.kino_xp.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
 @RestController
 
-public class UserController {
+public class UserRestController {
 
   @Autowired
   UserRepository userRepository;

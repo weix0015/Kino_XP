@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class SeatRow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seatRowNumber;
     @OneToMany(mappedBy = "seatRow", cascade = CascadeType.REMOVE)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     @JsonManagedReference("seatRowReference")
     private List<Seat> seatList = new ArrayList<>();
 }

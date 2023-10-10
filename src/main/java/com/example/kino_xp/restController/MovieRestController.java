@@ -2,7 +2,6 @@ package com.example.kino_xp.restController;
 
 import com.example.kino_xp.dto.movie.MovieRequest;
 import com.example.kino_xp.dto.movie.MovieResponse;
-import com.example.kino_xp.repository.MovieRepository;
 import com.example.kino_xp.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-public class MovieController {
+public class MovieRestController {
 
   @Autowired
   MovieService movieService;
@@ -27,14 +26,14 @@ public class MovieController {
 
   // create a movie
   @PostMapping("/movie")
-  public ResponseEntity<MovieResponse> postMovie(@RequestBody MovieRequest movieRequest) {
+  public ResponseEntity<String> postMovie(@RequestBody MovieRequest movieRequest) {
     MovieResponse creatMovie = movieService.createMovie(movieRequest);
-    return new ResponseEntity<>(creatMovie, HttpStatus.CREATED);
+    return ResponseEntity.status(HttpStatus.CREATED).body("Movie created successfully");
   }
 
   // get movie by id
-  @GetMapping("/movie/id/{id}")
-  public ResponseEntity<MovieResponse> getMovieById(@PathVariable("id") String title) {
+  @GetMapping("/movie/{title}")
+  public ResponseEntity<MovieResponse> getMovieById(@PathVariable("title") String title) {
     MovieResponse movieResponse = movieService.getMovieById(title);
     return ResponseEntity.ok(movieResponse);
   }
@@ -49,9 +48,9 @@ public class MovieController {
 
   // delete movies
   @DeleteMapping("/movie/{title}")
-  public ResponseEntity<Void> deleteMovie(@PathVariable("title") String title) {
+  public ResponseEntity<String> deleteMovie(@PathVariable("title") String title) {
     movieService.deleteMovie(title);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return ResponseEntity.status(HttpStatus.OK).body("Movie deleted successfully");
 
   }
 

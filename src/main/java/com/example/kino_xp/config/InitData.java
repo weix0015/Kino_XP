@@ -42,6 +42,8 @@ public class InitData implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
 
+
+
     //Test Ticket
     Seat testSeat = new Seat();
     SeatRow seatRow1 = new SeatRow();

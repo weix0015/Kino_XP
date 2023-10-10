@@ -1,10 +1,13 @@
 package com.example.kino_xp.dto.ticket;
 
 import com.example.kino_xp.model.Ticket;
+import com.example.kino_xp.model.User;
+import com.example.kino_xp.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TicketRequest {
+
     private Long user_id;
     private LocalDateTime dateOfPurchase;
     private Long viewing_id;
@@ -20,12 +24,20 @@ public class TicketRequest {
 
     private double price;
 
-    public void copyTo(Ticket ticket){
+    public void copyTo(Ticket ticket) {
         ticket.setDateOfPurchase(dateOfPurchase);
         ticket.setHall(hall);
     }
 
-    public Ticket toTicket(){
+    public Ticket getTicketEntity(TicketRequest t) {
+        return Ticket.builder()
+                .dateOfPurchase(t.dateOfPurchase)
+                .hall(hall)
+                .price(price)
+                .build();
+    }
+
+    public Ticket toTicket() {
         Ticket ticket = new Ticket();
         copyTo(ticket);
         return ticket;
