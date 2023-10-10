@@ -14,7 +14,7 @@ import lombok.*;
 public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int seatNumber;
+    private Long seatNumber;
 
     @ManyToOne
     @JoinColumn(name = "seatRowNumber")

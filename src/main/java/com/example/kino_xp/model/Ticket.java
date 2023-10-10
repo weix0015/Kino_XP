@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @ManyToOne()
     @JoinColumn(name = "ticket", referencedColumnName = "id")
     @JsonBackReference("userReference")
@@ -36,7 +36,7 @@ public class Ticket {
     @ManyToOne()
     @JsonBackReference("viewingReference")
     private Viewing viewing;
-    private int hall;
+    private Long hall;
     private double price;
 
     @OneToMany(mappedBy = "ticket")

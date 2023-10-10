@@ -2,11 +2,9 @@ package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.MovieConverter;
 import com.example.kino_xp.converter.ViewingConverter;
-import com.example.kino_xp.dto.MovieDTO;
 import com.example.kino_xp.exception.MovieNotFoundException;
 import com.example.kino_xp.model.Genre;
 import com.example.kino_xp.model.Movie;
-import com.example.kino_xp.model.Viewing;
 import com.example.kino_xp.repository.MovieRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

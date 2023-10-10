@@ -17,9 +17,9 @@ public class Viewing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private LocalDateTime showTime;
-    private int hall;
+    private Long hall;
     private LocalDateTime showEndTime;
 
     @OneToMany(cascade = CascadeType.REMOVE)

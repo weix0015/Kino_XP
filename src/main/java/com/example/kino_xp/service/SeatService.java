@@ -1,7 +1,6 @@
 package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.SeatConverter;
-import com.example.kino_xp.dto.SeatDTO;
 import com.example.kino_xp.exception.SeatNotFoundException;
 import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.repository.SeatRepository;

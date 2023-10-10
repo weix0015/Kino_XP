@@ -1,7 +1,5 @@
 package com.example.kino_xp.restController;
 
-import com.example.kino_xp.dto.SeatRowDTO;
-import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.service.SeatRowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

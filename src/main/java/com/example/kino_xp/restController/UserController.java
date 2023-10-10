@@ -1,7 +1,5 @@
 package com.example.kino_xp.restController;
 
-import com.example.kino_xp.dto.UserDTO;
-import com.example.kino_xp.dto.UserLoginDTO;
 import com.example.kino_xp.model.User;
 import com.example.kino_xp.exception.UserNotFoundException;
 import com.example.kino_xp.repository.UserRepository;

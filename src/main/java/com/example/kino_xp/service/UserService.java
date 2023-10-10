@@ -3,7 +3,6 @@ package com.example.kino_xp.service;
 import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.model.Ticket;
 import com.example.kino_xp.model.User;
-import com.example.kino_xp.dto.UserDTO;
 import com.example.kino_xp.exception.UserNotFoundException;
 import com.example.kino_xp.repository.UserRepository;
 import com.example.kino_xp.converter.UserConverter;

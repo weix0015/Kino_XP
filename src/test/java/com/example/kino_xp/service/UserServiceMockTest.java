@@ -1,26 +1,11 @@
 package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.UserConverter;
-import com.example.kino_xp.dto.UserDTO;
-import com.example.kino_xp.model.Ticket;
 import com.example.kino_xp.model.User;
-import com.example.kino_xp.exception.UserNotFoundException;
-import com.example.kino_xp.model.Viewing;
 import com.example.kino_xp.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserServiceMockTest {

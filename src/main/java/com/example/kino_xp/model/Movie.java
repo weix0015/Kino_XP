@@ -16,7 +16,7 @@ public class Movie {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-  private int id;
+  private Long id;
   private String title;
   private Genre genre;
   private LocalTime showLength;

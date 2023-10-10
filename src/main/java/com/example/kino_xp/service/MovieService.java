@@ -1,7 +1,6 @@
 package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.MovieConverter;
-import com.example.kino_xp.dto.MovieDTO;
 import com.example.kino_xp.exception.MovieNotFoundException;
 import com.example.kino_xp.model.Movie;
 import com.example.kino_xp.repository.MovieRepository;
@@ -42,7 +41,7 @@ public class MovieService {
 
   // create the movie
   public MovieDTO createMovie(MovieDTO movieDTO) {
-    Movie movieToSave = movieConverter.movieToEntity(movieDTO);
+    Movie movieToSave = movieConverter.movieDTOToEntity(movieDTO);
     movieToSave.setId(0);
     Movie movie = movieRepository.save(movieToSave);
     return movieConverter.movieToDTO(movie);
@@ -53,7 +52,7 @@ public class MovieService {
   public MovieDTO updateMovie(int id, MovieDTO movieDTO) {
     Optional<Movie> existingMovie = movieRepository.findById(id);
     if (existingMovie.isPresent()) {
-      Movie movieToUpdate = movieConverter.movieToEntity(movieDTO);
+      Movie movieToUpdate = movieConverter.movieDTOToEntity(movieDTO);
       movieToUpdate.setId(id);
       Movie savedMovie = movieRepository.save(movieToUpdate);
       return movieConverter.movieToDTO(savedMovie);

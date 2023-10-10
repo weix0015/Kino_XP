@@ -1,7 +1,6 @@
 package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.TicketConverter;
-import com.example.kino_xp.dto.TicketDTO;
 import com.example.kino_xp.model.Ticket;
 import com.example.kino_xp.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;

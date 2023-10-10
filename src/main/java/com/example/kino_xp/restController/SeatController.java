@@ -1,8 +1,6 @@
 package com.example.kino_xp.restController;
 
 import com.example.kino_xp.converter.SeatConverter;
-import com.example.kino_xp.dto.SeatDTO;
-import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.repository.SeatRepository;
 import com.example.kino_xp.service.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +44,7 @@ public class SeatController
         // Create a new SeatDTO with the updated reserved status
         SeatDTO updatedSeatDTO = new SeatDTO(
                 seatDTO.seatNumber(),
-                seatDTO.row(),
+                seatDTO.seatRow_id(),
                 seatDTO.ticket()
         );
 

@@ -1,12 +1,10 @@
 package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.SeatConverter;
-import com.example.kino_xp.dto.SeatDTO;
 import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.repository.SeatRepository;
 import com.example.kino_xp.repository.SeatRowRepository;
-import org.h2.result.Row;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

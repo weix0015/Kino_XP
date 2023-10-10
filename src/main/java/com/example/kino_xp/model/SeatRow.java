@@ -20,7 +20,7 @@ import java.util.List;
 public class SeatRow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int seatRowNumber;
+    private Long seatRowNumber;
     @OneToMany(mappedBy = "seatRow", cascade = CascadeType.ALL)
     @JsonManagedReference("seatRowReference")
     private List<Seat> seatList = new ArrayList<>();

@@ -1,7 +1,6 @@
 package com.example.kino_xp.service;
 
 import com.example.kino_xp.converter.ViewingConverter;
-import com.example.kino_xp.dto.ViewingDTO;
 import com.example.kino_xp.model.Viewing;
 import com.example.kino_xp.repository.ViewingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
