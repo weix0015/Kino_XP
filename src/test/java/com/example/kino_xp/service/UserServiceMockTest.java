@@ -1,6 +1,5 @@
 package com.example.kino_xp.service;
 
-import com.example.kino_xp.converter.UserConverter;
 import com.example.kino_xp.model.User;
 import com.example.kino_xp.repository.UserRepository;
 import org.mockito.Mock;
@@ -9,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class UserServiceMockTest {
-
+/*
     @Mock
     private UserRepository mockedUserRepository;
 

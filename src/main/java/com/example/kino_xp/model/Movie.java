@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class Movie {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

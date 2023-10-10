@@ -2,10 +2,7 @@ package com.example.kino_xp.dto.movie;
 
 import com.example.kino_xp.model.Genre;
 import com.example.kino_xp.model.Movie;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalTime;
 
@@ -18,6 +15,15 @@ public class MovieRequest {
     private Genre genre;
     private LocalTime showLength;
     private int age;
+
+    public Movie getMovieEntity(MovieRequest m){
+        return Movie.builder().title(m.title)
+                .genre(m.genre)
+                .showLength(m.showLength)
+                .age(m.age)
+                .build();
+    }
+
 
     public void copyTo(Movie movie){
         movie.setTitle(title);
