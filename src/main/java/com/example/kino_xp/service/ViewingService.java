@@ -73,8 +73,10 @@ public class ViewingService {
 
     public ViewingResponse updateViewing(Long id, ViewingRequest viewingRequest) {
         Optional<Viewing> viewingToEditOptional = viewingRepository.findById(id);
-        Viewing viewingToEdit = viewingToEditOptional.get();
         if (viewingToEditOptional.isPresent()) {
+            Viewing viewingToEdit = viewingToEditOptional.get();
+            viewingToEdit.setMovie(findMovie(viewingRequest));
+            viewingToEdit.setTickets(findTickets(viewingRequest));
             viewingRequest.copyTo(viewingToEdit);
             return new ViewingResponse(viewingRepository.save(viewingToEdit));
         } else {

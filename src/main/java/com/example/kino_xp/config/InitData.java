@@ -46,11 +46,25 @@ public class InitData implements CommandLineRunner {
 
     //Test Ticket
     Seat testSeat = new Seat();
+    Seat testSeat2 = new Seat();
+    Seat testSeat3 = new Seat();
+
+
     SeatRow seatRow1 = new SeatRow();
+    SeatRow seatRow2 = new SeatRow();
+    SeatRow seatRow3 = new SeatRow();
     //SETUP TEST SEAT_ROW
     seatRow1.setSeatList(new ArrayList<Seat>(Arrays.asList(testSeat)));
     seatRow1.setSeatRowNumber(1L);
     seatRowRepository.save(seatRow1);
+
+    seatRow2.setSeatList(new ArrayList<Seat>(Arrays.asList(testSeat2)));
+    seatRow2.setSeatRowNumber(2L);
+    seatRowRepository.save(seatRow2);
+
+    seatRow3.setSeatList(new ArrayList<Seat>(Arrays.asList(testSeat3)));
+    seatRow3.setSeatRowNumber(3L);
+    seatRowRepository.save(seatRow3);
 
     //SETUP TEST USER
     User u1 = new User();
@@ -89,6 +103,7 @@ public class InitData implements CommandLineRunner {
     m1.setGenre(Genre.COMEDY);
     m1.setAge(18);
     m1.setShowLength(LocalTime.of(2, 30, 30));
+
 
     movieRepository.save(m1);
 

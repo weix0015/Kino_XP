@@ -25,6 +25,9 @@ public class ViewingRequest {
 
     public void copyTo(Viewing viewing) {
         viewing.setId(id);
+        viewing.setShowTime(showTime);
+        viewing.setHall(hall);
+        viewing.setShowEndTime(showEndTime);
     }
 
 

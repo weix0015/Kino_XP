@@ -3,7 +3,9 @@ package com.example.kino_xp.service;
 import com.example.kino_xp.dto.seatRow.SeatRowRequest;
 import com.example.kino_xp.dto.seatRow.SeatRowResponse;
 import com.example.kino_xp.exception.SeatRowNotFoundExeption;
+import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.model.SeatRow;
+import com.example.kino_xp.repository.SeatRepository;
 import com.example.kino_xp.repository.SeatRowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ import java.util.stream.Collectors;
 public class SeatRowService {
 
     private final SeatRowRepository seatRowRepository;
+
+    @Autowired
+    SeatRepository seatRepository;
 
 
     @Autowired
@@ -47,8 +52,16 @@ public class SeatRowService {
         } else {
             existingSeatRow = existingSeatRowOptional.get();
             seatRowRequest.copyTo(existingSeatRow);
+            existingSeatRow.setSeatList(findSeats(seatRowRequest));
             return new SeatRowResponse(seatRowRepository.save(existingSeatRow));
         }
+    }
+
+    public List<Seat> findSeats(SeatRowRequest seatRowRequest){
+        return seatRowRequest.getSeatNumberList().stream()
+                .map(seatRepository::findById).toList().stream()
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 }
 
