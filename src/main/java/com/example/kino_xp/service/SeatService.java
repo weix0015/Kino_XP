@@ -3,7 +3,7 @@ package com.example.kino_xp.service;
 import com.example.kino_xp.dto.seat.SeatRequest;
 import com.example.kino_xp.dto.seat.SeatResponse;
 import com.example.kino_xp.exception.SeatNotFoundException;
-import com.example.kino_xp.exception.SeatRowNotFoundExeption;
+import com.example.kino_xp.exception.SeatRowNotFoundException;
 import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.repository.SeatRepository;
@@ -72,7 +72,7 @@ public class SeatService {
     public SeatRow findSeatRow(SeatRequest seatRequest) {
         Optional<SeatRow> seatRow = seatRowRepository.findById(seatRequest.getSeatRowNumber());
         if (seatRow.isEmpty()) {
-            throw new SeatRowNotFoundExeption("Seat-row with given id: "
+            throw new SeatRowNotFoundException("Seat-row with given id: "
                     + seatRequest.getSeatRowNumber()
                     + " could not be found");
         } else {

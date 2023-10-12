@@ -1,6 +1,6 @@
 package com.example.kino_xp.service;
 
-import com.example.kino_xp.exception.SeatRowNotFoundExeption;
+import com.example.kino_xp.exception.SeatRowNotFoundException;
 import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.repository.SeatRowRepository;
 import org.junit.jupiter.api.BeforeEach;
