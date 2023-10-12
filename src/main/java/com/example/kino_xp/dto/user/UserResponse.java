@@ -18,7 +18,7 @@ public class UserResponse {
     private Long id;
     private String name;
     private String email;
-    private String password;
+    private String password = null;
     private List<Long> ticket_ids;
     private boolean admin;
 
