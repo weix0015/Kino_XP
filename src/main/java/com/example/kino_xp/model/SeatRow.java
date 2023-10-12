@@ -1,5 +1,6 @@
 package com.example.kino_xp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,4 +28,9 @@ public class SeatRow {
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JsonManagedReference("seatRowReference")
     private List<Seat> seatList = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    @JsonBackReference
+    private Hall hall;
 }
