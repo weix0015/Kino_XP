@@ -1,6 +1,7 @@
 package com.example.kino_xp.restController;
 
-import com.example.kino_xp.dto.ViewingDTO;
+import com.example.kino_xp.dto.viewing.ViewingRequest;
+import com.example.kino_xp.dto.viewing.ViewingResponse;
 import com.example.kino_xp.service.ViewingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,33 +17,37 @@ public class ViewingRestController {
     ViewingService viewingService;
 
     @GetMapping("/viewings")
-    public ResponseEntity<List<ViewingDTO>> getAllViewings() {
-        List<ViewingDTO> viewingDTOList = viewingService.getAllViewings();
+    public ResponseEntity<List<ViewingResponse>> getAllViewings() {
+        List<ViewingResponse> viewingDTOList = viewingService.getAllViewings();
         return new ResponseEntity<>(viewingDTOList, HttpStatus.OK);
     }
 
     @PostMapping("/viewing")
-    public ResponseEntity<ViewingDTO> createViewing(@RequestBody ViewingDTO viewingDTO) {
-        ViewingDTO createdViewing = viewingService.createViewing(viewingDTO);
-        return new ResponseEntity<>(createdViewing, HttpStatus.CREATED);
+    public ResponseEntity<String> createViewing(@RequestBody ViewingRequest viewingRequest) {
+        ViewingResponse createdViewing = viewingService.createViewing(viewingRequest);
+        if (createdViewing != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Viewing created successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Viewing creation failed");
+        }
     }
 
-    @GetMapping("/viewings/{id}")
-    public ResponseEntity <ViewingDTO> getViewingById(@PathVariable("id") int id) {
-        ViewingDTO viewingDTO = viewingService.getViewingById(id);
-        return ResponseEntity.ok(viewingDTO);
+    @GetMapping("/viewing/{id}")
+    public ResponseEntity <ViewingResponse> getViewingById(@PathVariable("id") Long id) {
+        ViewingResponse viewingResponse = viewingService.getViewingById(id);
+        return ResponseEntity.ok(viewingResponse);
     }
 
-    @PutMapping("/viewings/{id}")
-    public ResponseEntity<ViewingDTO> putViewing(@PathVariable int id, @RequestBody ViewingDTO
-            viewingDTO) {
-        ViewingDTO updateViewingDTO = viewingService.updateViewing(id, viewingDTO);
-        return ResponseEntity.ok(updateViewingDTO);
+    @PutMapping("/viewing/{id}")
+    public ResponseEntity<ViewingResponse> putViewing(@PathVariable Long id, @RequestBody ViewingRequest
+            viewingRequest) {
+        ViewingResponse updatedViewingResponse = viewingService.updateViewing(id, viewingRequest);
+        return ResponseEntity.ok(updatedViewingResponse);
     }
 
-    @DeleteMapping("/viewings/{id}")
-    public ResponseEntity<Void> deleteViewing(@PathVariable int id) {
+    @DeleteMapping("/viewing/{id}")
+    public ResponseEntity<String> deleteViewing(@PathVariable Long id) {
         viewingService.deleteViewingById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.status(HttpStatus.OK).body("Viewing deleted successfully");
     }
 }

@@ -1,12 +1,13 @@
 package com.example.kino_xp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Setter
@@ -14,14 +15,19 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class Movie {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-  private int id;
   private String title;
+
+  private String posterUrl;
   private Genre genre;
   private LocalTime showLength;
   private int age;
+  @OneToMany(cascade = CascadeType.REMOVE)
+  @JoinColumn(name = "viewing_id", foreignKey = @ForeignKey(name = "FK_MOVIE_VIEWING"))
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonBackReference("viewingReference")
+  private List<Viewing> viewing;
 
 }

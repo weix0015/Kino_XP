@@ -1,99 +1,102 @@
 package com.example.kino_xp.service;
 
+import com.example.kino_xp.dto.user.UserRequest;
+import com.example.kino_xp.dto.user.UserResponse;
 import com.example.kino_xp.model.User;
-import com.example.kino_xp.dto.UserDTO;
 import com.example.kino_xp.exception.UserNotFoundException;
 import com.example.kino_xp.repository.UserRepository;
-import com.example.kino_xp.converter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UserService {
-  private final UserRepository userRepository;
-  private final UserConverter userConverter;
+    private final UserRepository userRepository;
+    private final TicketService ticketService;
 
 
-  @Autowired
-  public UserService(UserRepository userRepository, UserConverter userConverter) {
-    this.userConverter = userConverter;
-    this.userRepository = userRepository;
-  }
-
-  public List<UserDTO> getAllUsers() {
-    List<User> users = userRepository.findAll();
-    return users.stream()
-      .map(userConverter::toDTO)
-      .collect(Collectors.toList());
-  }
-
-  public List<UserDTO> getUsersByName(String name) {
-    List<User> userList = userRepository.findAllByName(name);
-
-    if (userList.isEmpty()) {
-      throw new UserNotFoundException("No user found with name: " + name);
-    } else {
-      return userList.stream()
-        .map(userConverter::toDTO)
-        .collect(Collectors.toList());
+    @Autowired
+    public UserService(UserRepository userRepository, TicketService ticketService) {
+        this.userRepository = userRepository;
+        this.ticketService = ticketService;
     }
-  }
 
-  public UserDTO getUserById(int id) {
-    Optional<User> optionalUser = userRepository.findById(id);
-
-    if (optionalUser.isEmpty()) {
-      throw new UserNotFoundException("User with id: " + id + " could not be found");
-    } else {
-      return userConverter.toDTO(optionalUser.get());
+    public List<UserResponse> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(UserResponse::new)
+                .collect(Collectors.toList());
     }
-  }
 
-  public UserDTO getUserByEmail(String email) {
-    List<User> userList = userRepository.findAllByEmail(email);
-    if (!userList.isEmpty()) {
-      User foundUser = userList.get(0);
-      return userConverter.toDTO(foundUser);
-    } else {
-      throw new UserNotFoundException("User with email: " + email + " could not be found");
+    public List<UserResponse> getUsersByName(String name) {
+        List<User> userList = userRepository.findAllByName(name);
+
+        if (userList.isEmpty()) {
+            throw new UserNotFoundException("No user found with name: " + name);
+        } else {
+            return userList.stream()
+                    .map(UserResponse::new)
+                    .collect(Collectors.toList());
+        }
     }
-  }
 
-  public UserDTO createUser(UserDTO userDTO) {
-    User userToSave = userConverter.toEntity(userDTO);
-    userToSave.setId(0);
-
-    String hashedPassword = BCrypt.hashpw(userDTO.password(), BCrypt.gensalt());
-
-    userToSave.setPassword(hashedPassword);
-    User savedUser = userRepository.save(userToSave);
-    return userConverter.toDTO(savedUser);
-  }
-
-  public UserDTO updateUser(int id, UserDTO userDTO) {
-    Optional<User> existingUser = userRepository.findById(id);
-    if (existingUser.isEmpty()) {
-      throw new UserNotFoundException("User with id: " + id + " not found");
-    } else {
-      User userToUpdate = userConverter.toEntity(userDTO);
-      userToUpdate.setId(id);
-      User savedUser = userRepository.save(userToUpdate);
-      return userConverter.toDTO(savedUser);
+    public UserResponse getUserById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.get();
+        if (optionalUser.isEmpty()) {
+            throw new UserNotFoundException("User with id: " + id + " could not be found");
+        } else {
+            return new UserResponse (user);
+        }
     }
-  }
 
-  public void deleteUserById(int id) {
-    Optional<User> user = userRepository.findById(id);
-    if (user.isEmpty()) {
-      throw new UserNotFoundException("User with id: " + id + " not found");
-    } else {
-      userRepository.deleteById(id);
+    public UserResponse getUserByEmail(String email) {
+        List<User> userList = userRepository.findAllByEmail(email);
+        if (!userList.isEmpty()) {
+            User foundUser = userList.get(0);
+            return new UserResponse(foundUser);
+        } else {
+            throw new UserNotFoundException("User with email: " + email + " could not be found");
+        }
     }
-  }
+
+    public UserResponse createUser(UserRequest userRequest) {
+        User userToSave = new User();
+        if (userRepository.existsByEmail(userRequest.getEmail())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with email: "
+            + userRequest.getEmail()
+            + " already exists");
+        } else {
+            userRequest.copyTo(userToSave);
+            userRepository.save(userToSave);
+            return new UserResponse(userToSave);
+        }
+    }
+
+    public UserResponse updateUser(Long id, UserRequest userRequest) {
+        Optional<User> existingUserOptional = userRepository.findById(id);
+        User existingUser = new User();
+        if (existingUserOptional.isEmpty()) {
+            throw new UserNotFoundException("User with id: " + id + " not found");
+        } else {
+            existingUser = existingUserOptional.get();
+            userRequest.copyTo(existingUser);
+            return new UserResponse(userRepository.save(existingUser));
+        }
+    }
+
+    public void deleteUserById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("User with id: " + id + " not found");
+        } else {
+            userRepository.deleteById(id);
+        }
+    }
 }
