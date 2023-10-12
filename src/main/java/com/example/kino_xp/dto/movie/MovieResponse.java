@@ -15,6 +15,8 @@ import java.time.LocalTime;
 public class MovieResponse {
     private String title;
     private Genre genre;
+
+    private String posterUrl;
     private LocalTime showLength;
     private int age;
 
@@ -23,5 +25,6 @@ public class MovieResponse {
         this.genre = m.getGenre();
         this.showLength = m.getShowLength();
         this.age = m.getAge();
+        this.posterUrl = m.getPosterUrl();
     }
 }

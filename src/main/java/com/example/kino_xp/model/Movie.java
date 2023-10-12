@@ -19,6 +19,8 @@ import java.util.List;
 public class Movie {
   @Id
   private String title;
+
+  private String posterUrl;
   private Genre genre;
   private LocalTime showLength;
   private int age;
