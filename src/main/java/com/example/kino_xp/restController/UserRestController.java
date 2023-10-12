@@ -1,11 +1,17 @@
 package com.example.kino_xp.restController;
 
+import ch.qos.logback.core.model.Model;
+import com.example.kino_xp.dto.user.LoginRequest;
+import com.example.kino_xp.dto.user.LoginResponse;
 import com.example.kino_xp.dto.user.UserRequest;
 import com.example.kino_xp.dto.user.UserResponse;
 import com.example.kino_xp.exception.UserNotFoundException;
+import com.example.kino_xp.model.User;
 import com.example.kino_xp.repository.UserRepository;
 import com.example.kino_xp.service.SessionService;
 import com.example.kino_xp.service.UserService;
+import jakarta.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,34 +56,34 @@ public class UserRestController {
     return new ResponseEntity<>(userResponses, HttpStatus.OK);
   }
 
-/*
+
   @PostMapping("/login")
-  public ResponseEntity<String> doLogin(Model model, HttpSession session,
-                                        @RequestBody UserLoginDTO userLoginDTO) {
+  public ResponseEntity<LoginResponse> doLogin(@RequestBody LoginRequest loginRequest, HttpSession session) {
     if (sessionService.isLoggedIn(session)) {
       // User is already logged in
-      return ResponseEntity.status(HttpStatus.CONFLICT).body("User is already logged in");
+      return ResponseEntity.status(HttpStatus.CONFLICT).body(new LoginResponse(false, "User is already logged in"));
     }
 
     // Retrieve user by email from the repository
-    List<User> userListByEmail = userRepository.findAllByEmail(userLoginDTO.email());
+    List<User> userListByEmail = userRepository.findAllByEmail(loginRequest.getEmail());
 
     try {
-      User user = userListByEmail.get(0);
+      if (!userListByEmail.isEmpty()) {
+        User user = userListByEmail.get(0);
 
-      if (user.getPassword() != null && BCrypt.checkpw(userLoginDTO.password(), user.getPassword())) {
-        // If password matches, set attributes in session
-        sessionService.loginUser(session, userLoginDTO.email());
-        return ResponseEntity.status(HttpStatus.OK).body("Login successful");
+        if (user.getPassword() != null && BCrypt.checkpw(loginRequest.getPassword(), user.getPassword())) {
+          // If the password matches, set attributes in session
+          sessionService.loginUser(session, loginRequest.getEmail());
+          return ResponseEntity.status(HttpStatus.OK).body(new LoginResponse(true, "Login successful"));
+        } else {
+          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, "Invalid password"));
+        }
       } else {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new LoginResponse(false, "User not found with email: " + loginRequest.getEmail()));
       }
-    } catch (IndexOutOfBoundsException e) {
-      // Catch the exception when the user is not found in the database
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + userLoginDTO.email());
     } catch (Exception e) {
       // Handle other unexpected exceptions here
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new LoginResponse(false, "Internal Server Error"));
     }
   }
 
@@ -87,7 +93,7 @@ public class UserRestController {
     return ResponseEntity.status(HttpStatus.OK).body("Logout successful");
   }
 
- */
+
 
 
   @PostMapping("/user")

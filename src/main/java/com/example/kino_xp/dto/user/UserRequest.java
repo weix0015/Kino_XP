@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 public class UserRequest {
     private String name;
     private String email;
-    private String password = null;
+    private String password;
 
     private List<Long> ticket_ids;
 
@@ -27,7 +28,7 @@ public class UserRequest {
         return User.builder()
                 .name(userRequest.name)
                 .email(userRequest.getEmail())
-                .password(null)
+                .password(BCrypt.hashpw(userRequest.getPassword(), BCrypt.gensalt()))
                 .admin(userRequest.isAdmin())
                 .build();
     }
