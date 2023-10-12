@@ -57,11 +57,11 @@ public class SeatRowService {
     }
 
     public List<Seat> findSeats(SeatRowRequest seatRowRequest){
-        return seatRowRequest.getSeatNumbers().stream()
+        List<Optional<Seat>> foundOptionalSeats = seatRowRequest.getSeatNumbers().stream()
                 .map(seatRepository::findById).toList().stream()
-                .toList().stream()
-                .map(Optional::get)
                 .toList();
+
+        return null;
     }
 }
 
