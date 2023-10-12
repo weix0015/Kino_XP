@@ -28,9 +28,4 @@ public class SeatRow {
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JsonManagedReference("seatRowReference")
     private List<Seat> seatList = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    @JsonBackReference
-    private Hall hall;
 }

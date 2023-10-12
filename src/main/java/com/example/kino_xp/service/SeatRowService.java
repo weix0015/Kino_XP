@@ -2,7 +2,7 @@ package com.example.kino_xp.service;
 
 import com.example.kino_xp.dto.seatRow.SeatRowRequest;
 import com.example.kino_xp.dto.seatRow.SeatRowResponse;
-import com.example.kino_xp.exception.SeatRowNotFoundExeption;
+import com.example.kino_xp.exception.SeatRowNotFoundException;
 import com.example.kino_xp.model.Seat;
 import com.example.kino_xp.model.SeatRow;
 import com.example.kino_xp.repository.SeatRepository;
@@ -41,14 +41,14 @@ public class SeatRowService {
         if (foundSeatRow.isPresent()) {
             return new SeatRowResponse(foundSeatRow.get());
         } else {
-            throw new SeatRowNotFoundExeption("Row not found with id: " + id);
+            throw new SeatRowNotFoundException("Row not found with id: " + id);
         }
     }
 
     public SeatRowResponse updateSeatRowBySeatRowNumber(Long seatRowNumber, SeatRowRequest seatRowRequest) {
         Optional<SeatRow> existingSeatRowOptional = seatRowRepository.findById(seatRowRequest.getSeatRowNumber());
         if (existingSeatRowOptional.isEmpty()) {
-            throw new SeatRowNotFoundExeption("Could not find seat with seat number: " + seatRowNumber);
+            throw new SeatRowNotFoundException("Could not find seat with seat number: " + seatRowNumber);
         } else {
             SeatRow existingSeatRow = existingSeatRowOptional.get();
             seatRowRequest.copyTo(existingSeatRow);
@@ -66,7 +66,7 @@ public class SeatRowService {
             if (seat.isPresent()){
                 foundSeats.add(seat.get());
             } else {
-                throw new SeatRowNotFoundExeption("Seat empty");
+                throw new SeatRowNotFoundException("Seat empty");
             }
         }
         return foundSeats;
