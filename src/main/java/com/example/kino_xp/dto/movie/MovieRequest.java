@@ -13,6 +13,8 @@ import java.time.LocalTime;
 public class MovieRequest {
     private String title;
     private Genre genre;
+
+    private String posterUrl;
     private LocalTime showLength;
     private int age;
 
@@ -20,6 +22,7 @@ public class MovieRequest {
         return Movie.builder().title(m.title)
                 .genre(m.genre)
                 .showLength(m.showLength)
+                .posterUrl(m.posterUrl)
                 .age(m.age)
                 .build();
     }
@@ -30,6 +33,7 @@ public class MovieRequest {
         movie.setGenre(genre);
         movie.setShowLength(showLength);
         movie.setAge(age);
+        movie.setPosterUrl(posterUrl);
     }
 
     public MovieRequest(Movie m){
@@ -37,5 +41,6 @@ public class MovieRequest {
         this.genre = m.getGenre();
         this.showLength = m.getShowLength();
         this.age = m.getAge();
+        this.posterUrl = m.getPosterUrl();
     }
 }
