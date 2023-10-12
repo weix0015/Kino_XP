@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SeatRowRequest {
     private Long seatRowNumber;
-    private List<Long> seatNumberList;
+    private List<Long> seatNumbers;
 
     public void copyTo(SeatRow seatRow){
         seatRow.setSeatRowNumber(seatRowNumber);

@@ -24,6 +24,7 @@ public class TicketResponse {
         this.id = ticket.getId();
         this.user_id = ticket.getUser().getId();
         this.dateOfPurchase = ticket.getDateOfPurchase();
+        this.viewing_id = ticket.getViewing().getId();
         this.hall = ticket.getHall();
         this.price = ticket.getPrice();
     }

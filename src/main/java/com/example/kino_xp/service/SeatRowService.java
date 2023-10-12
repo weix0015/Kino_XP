@@ -46,11 +46,10 @@ public class SeatRowService {
 
     public SeatRowResponse updateSeatRowBySeatRowNumber(Long seatRowNumber, SeatRowRequest seatRowRequest) {
         Optional<SeatRow> existingSeatRowOptional = seatRowRepository.findById(seatRowRequest.getSeatRowNumber());
-        SeatRow existingSeatRow = new SeatRow();
         if (existingSeatRowOptional.isEmpty()) {
             throw new SeatRowNotFoundExeption("Could not find seat with seat number: " + seatRowNumber);
         } else {
-            existingSeatRow = existingSeatRowOptional.get();
+            SeatRow existingSeatRow = existingSeatRowOptional.get();
             seatRowRequest.copyTo(existingSeatRow);
             existingSeatRow.setSeatList(findSeats(seatRowRequest));
             return new SeatRowResponse(seatRowRepository.save(existingSeatRow));
@@ -58,10 +57,11 @@ public class SeatRowService {
     }
 
     public List<Seat> findSeats(SeatRowRequest seatRowRequest){
-        return seatRowRequest.getSeatNumberList().stream()
+        return seatRowRequest.getSeatNumbers().stream()
                 .map(seatRepository::findById).toList().stream()
+                .toList().stream()
                 .map(Optional::get)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
 

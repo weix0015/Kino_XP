@@ -27,6 +27,7 @@ public class TicketRequest {
     public void copyTo(Ticket ticket) {
         ticket.setDateOfPurchase(dateOfPurchase);
         ticket.setHall(hall);
+        ticket.setPrice(price);
     }
 
     public Ticket getTicketEntity(TicketRequest t) {

@@ -48,12 +48,12 @@ public class SeatService {
 
     public SeatResponse updateSeat(Long id, SeatRequest seatRequest) {
         Optional<Seat> existingSeatOptional = seatRepository.findById(id);
-        Seat existingSeat = existingSeatOptional.get();
         if (existingSeatOptional.isEmpty()) {
             throw new SeatNotFoundException("The seat with the given id: "
                     + id
                     + " could not be found");
         } else {
+            Seat existingSeat = existingSeatOptional.get();
             seatRequest.copyTo(existingSeat);
             existingSeat.setSeatRow(findSeatRow(seatRequest));
             return new SeatResponse(seatRepository.save(existingSeat));
@@ -69,12 +69,12 @@ public class SeatService {
         return false;
     }
 
-    public SeatRow findSeatRow(SeatRequest seatRequest){
+    public SeatRow findSeatRow(SeatRequest seatRequest) {
         Optional<SeatRow> seatRow = seatRowRepository.findById(seatRequest.getSeatRowNumber());
-        if (seatRow.isEmpty()){
+        if (seatRow.isEmpty()) {
             throw new SeatRowNotFoundExeption("Seat-row with given id: "
-            + seatRequest.getSeatRowNumber()
-            + " could not be found");
+                    + seatRequest.getSeatRowNumber()
+                    + " could not be found");
         } else {
             return seatRow.get();
         }

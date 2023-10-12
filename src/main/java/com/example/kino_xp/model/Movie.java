@@ -24,9 +24,9 @@ public class Movie {
   private Genre genre;
   private LocalTime showLength;
   private int age;
-  @OneToMany
+  @OneToMany(cascade = CascadeType.REMOVE)
   @JoinColumn(name = "viewing_id", foreignKey = @ForeignKey(name = "FK_MOVIE_VIEWING"))
-  @OnDelete(action = OnDeleteAction.SET_NULL)
+  @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonBackReference("viewingReference")
   private List<Viewing> viewing;
 
