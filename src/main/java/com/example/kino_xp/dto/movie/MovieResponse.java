@@ -21,7 +21,6 @@ public class MovieResponse {
     private String posterUrl;
     private LocalTime showLength;
     private int age;
-
     private List<Long> viewing_ids;
 
     public MovieResponse(Movie m){

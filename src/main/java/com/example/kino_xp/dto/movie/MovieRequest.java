@@ -5,6 +5,7 @@ import com.example.kino_xp.model.Movie;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class MovieRequest {
     private String posterUrl;
     private LocalTime showLength;
     private int age;
+    private List<Long> viewing_ids;
 
     public Movie getMovieEntity(MovieRequest m){
         return Movie.builder().title(m.title)

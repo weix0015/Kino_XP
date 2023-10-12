@@ -10,6 +10,7 @@ import com.example.kino_xp.repository.SeatRowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -57,11 +58,18 @@ public class SeatRowService {
     }
 
     public List<Seat> findSeats(SeatRowRequest seatRowRequest){
-        List<Optional<Seat>> foundOptionalSeats = seatRowRequest.getSeatNumbers().stream()
-                .map(seatRepository::findById).toList().stream()
-                .toList();
-
-        return null;
+        List<Optional<Seat>> foundOptionalSeats = seatRowRequest.getSeatNumbers()
+                .stream()
+                .map(seatRepository::findById).toList();
+        List<Seat> foundSeats = new ArrayList<>();
+        for (Optional<Seat> seat : foundOptionalSeats){
+            if (seat.isPresent()){
+                foundSeats.add(seat.get());
+            } else {
+                throw new SeatRowNotFoundExeption("Seat empty");
+            }
+        }
+        return foundSeats;
     }
 }
 

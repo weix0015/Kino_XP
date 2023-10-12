@@ -12,7 +12,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 public class Seat {
     @Id
