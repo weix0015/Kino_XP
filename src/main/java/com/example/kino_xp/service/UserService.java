@@ -5,6 +5,7 @@ import com.example.kino_xp.dto.user.UserResponse;
 import com.example.kino_xp.model.User;
 import com.example.kino_xp.exception.UserNotFoundException;
 import com.example.kino_xp.repository.UserRepository;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -73,7 +74,9 @@ public class UserService {
             + userRequest.getEmail()
             + " already exists");
         } else {
-            userRequest.copyTo(userToSave);
+            String hashedPassword = BCrypt.hashpw(userRequest.getPassword(), BCrypt.gensalt());
+            userToSave.setPassword(hashedPassword);
+            userRequest.copyToWithoutPassword(userToSave);
             userRepository.save(userToSave);
             return new UserResponse(userToSave);
         }

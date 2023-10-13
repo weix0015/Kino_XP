@@ -39,6 +39,11 @@ public class UserRequest {
         user.setPassword(this.password);
     }
 
+    public void copyToWithoutPassword(User user){
+        user.setName(this.name);
+        user.setEmail(this.email);
+    }
+
     public User toUser(){
         User user = new User();
         copyTo(user);
